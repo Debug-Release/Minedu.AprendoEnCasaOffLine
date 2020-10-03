@@ -36,6 +36,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("addServidor")]
+        [SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(CommandResponse))]
         public async Task<IActionResult> AddServidor([FromBody] InsertServidorCommand command)
         {
@@ -46,6 +47,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("addContenido")]
+        [SwaggerOperation(Summary = "Registrar contenido", Description = "Registrar contenido")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(CommandResponse))]
         public async Task<IActionResult> AddContenido([FromBody] InsertContenidoCommand command)
         {

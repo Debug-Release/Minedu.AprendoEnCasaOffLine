@@ -38,6 +38,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     nombre = request.nombre,
                     descripcion = request.descripcion,
                     rutaOrigen = request.rutaOrigen,
+                    pesoMb = request.pesoMb,
                     estado = EstadoContenido.Pendiente,
                     esActivo = true,
                     fechaCreacion = DateTime.Now
