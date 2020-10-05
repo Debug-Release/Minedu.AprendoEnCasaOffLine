@@ -19,5 +19,5 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Model
         [JsonConverter(typeof(StringEnumConverter))]
         [BsonRepresentation(BsonType.String)]
         public EstadoContenido estado { get; set; }
-    }  
+    }
 }
