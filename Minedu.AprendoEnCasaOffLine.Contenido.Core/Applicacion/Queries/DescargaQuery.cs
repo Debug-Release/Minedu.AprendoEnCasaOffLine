@@ -34,7 +34,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                 if (q != null)
                 {
                     //Leer Archivo de disco
-                    sr.Exists = true;
+                    //Por ahora esta de esta forma...falta tunear
+                    if (System.IO.File.Exists(q.contenido.archivo))
+                    {
+                        sr.FileBytes = await System.IO.File.ReadAllBytesAsync(q.contenido.archivo);
+                        sr.FileName = System.IO.Path.GetFileName(q.contenido.archivo);
+                        sr.ContentType = "application/gzip";
+                        sr.Exists = true;
+                    }
+                    else
+                    {
+                        sr.Exists = false;
+                    }
+                    
                 }
                 else
                 {

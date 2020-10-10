@@ -45,6 +45,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             if (valid.Any())
             {
                 sr.Messages.AddRange(valid);
+                sr.Success = false;
                 //Return 1
                 return await Task.FromResult(sr);
             }
@@ -60,7 +61,24 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             if (ucc == null)
             {
                 sr.Messages.Add("No se encuentra disponible contenido para descargar");
+                sr.Success = false;
                 //Return 2
+                return await Task.FromResult(sr);
+            }
+
+            var qProgramcion = _descargaRepository.FirstOrDefault(x =>
+                        x.ipServidor == request.ipServidor &&
+                        x.esActivo == true &&
+                        x.esEliminado == false &&
+                        x.estado == EstadoDescarga.Programado &&
+                        x.contenido.id == ucc.id
+                        );
+
+            if (qProgramcion != null)
+            {
+                sr.Messages.Add($"Hay una descarga programada con el contenido [{ucc.nombre}]");
+                sr.Success = false;
+                //Return 3
                 return await Task.FromResult(sr);
             }
 
