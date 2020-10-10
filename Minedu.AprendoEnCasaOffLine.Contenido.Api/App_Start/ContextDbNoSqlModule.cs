@@ -51,6 +51,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
                 .InstancePerLifetimeScope();
             */
+            builder.RegisterGeneric(typeof(CollectionContext<>))
+               .As(typeof(ICollectionContext<>))
+               .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
+               .InstancePerDependency();
+
             builder.RegisterGeneric(typeof(BaseRepository<>))
                 .As(typeof(IBaseRepository<>))
                 .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))

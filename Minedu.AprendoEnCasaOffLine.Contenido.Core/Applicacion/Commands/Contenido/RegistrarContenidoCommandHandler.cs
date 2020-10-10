@@ -7,29 +7,28 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
-    public class InsertContenidoCommandHandler : IRequestHandler<InsertContenidoCommand, CommandResponse>
+    public class RegistrarContenidoCommandHandler : IRequestHandler<RegistrarContenidoCommand, StatusResponse>
     {
         private readonly IBaseRepository<Model.Contenido> _contenidoRepository;
 
-        public InsertContenidoCommandHandler(IBaseRepository<Model.Contenido> contenidoRepository)
+        public RegistrarContenidoCommandHandler(IBaseRepository<Model.Contenido> contenidoRepository)
         {
             _contenidoRepository = contenidoRepository;
         }
 
-        public async Task<CommandResponse> Handle(InsertContenidoCommand request, CancellationToken cancellationToken)
+        public async Task<StatusResponse> Handle(RegistrarContenidoCommand request, CancellationToken cancellationToken)
         {
-            var cr = new CommandResponse
+            var cr = new StatusResponse
             {
                 StatusCode = 200,
                 Success = true,
-                Msg = "El contenido se registro correctamente"
             };
 
             var q = _contenidoRepository.FirstOrDefault(x => x.nombre == request.nombre);
             if (q != null)
             {
                 cr.Success = false;
-                cr.Msg = "Ya existe un contenido registrado con el nombre [" + request.nombre + "]";
+                cr.Messages.Add("Ya existe un contenido registrado con el nombre [" + request.nombre + "]");
             }
             else
             {
@@ -37,14 +36,15 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 {
                     nombre = request.nombre,
                     descripcion = request.descripcion,
-                    rutaOrigen = request.rutaOrigen,
+                    archivo = request.archivo,
                     pesoMb = request.pesoMb,
-                    estado = EstadoContenido.Pendiente,
+                    estado = EstadoContenido.Cargado, //Cargado = cuando el archivo ya esta cargado en directorio de descargas
                     esActivo = true,
                     fechaCreacion = DateTime.Now
                 });
 
                 cr.Data = r.id;
+                cr.Messages.Add("El contenido se registro correctamente");
             }
 
             return await Task.FromResult(cr);

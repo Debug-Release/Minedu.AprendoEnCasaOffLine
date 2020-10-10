@@ -2,9 +2,9 @@
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
-    public class InsertDescargaCommandValidator : AbstractValidator<InsertDescargaCommand>
+    public class RegistrarContenidoCommandValidator : AbstractValidator<RegistrarContenidoCommand>
     {
-        public InsertDescargaCommandValidator()
+        public RegistrarContenidoCommandValidator()
         {
             RuleFor(x => x)
                 .NotNull().WithMessage("El request no debe ser nulo")
@@ -15,8 +15,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     RuleFor(x => x.nombre).MaximumLength(100).WithMessage("El nombre del contenido no puede tener más de 100 caracteres.");
 
                     //rutaOrigen
-                    RuleFor(x => x.rutaOrigen).NotEmpty().WithMessage("La ruta de origen del contenido es requerida");
-                    RuleFor(x => x.rutaOrigen).MaximumLength(100).WithMessage("La ruta origen del contenido no puede tener más de 100 caracteres.");
+                    RuleFor(x => x.archivo).NotEmpty().WithMessage("La ruta del archivo del contenido es requerida");
+                    RuleFor(x => x.archivo).MaximumLength(100).WithMessage("La ruta del archivo del contenido no puede tener más de 100 caracteres.");
 
                     //descripcion
                     When(x => !string.IsNullOrEmpty(x.descripcion), () =>

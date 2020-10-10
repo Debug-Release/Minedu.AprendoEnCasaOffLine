@@ -13,7 +13,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Model
     {
         public string nombre { get; set; }
         public string descripcion { get; set; }
-        public string rutaOrigen { get; set; }
+        public string archivo { get; set; }
         public string pesoMb { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]

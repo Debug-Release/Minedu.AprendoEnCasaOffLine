@@ -17,7 +17,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters
                 var errorsModel = context.ModelState
                     .Where(x => x.Value.Errors.Count > 0)
                     .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage)).ToArray();
-
+                /*
                 var cr = new CommandResponse();
                 var d = new Dictionary<string, string>();
 
@@ -38,6 +38,26 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters
                 cr.StatusCode = StatusCodes.Status400BadRequest;
 
                 context.Result = new BadRequestObjectResult(cr);
+                */
+                var sr = new StatusResponse
+                {
+                    StatusCode = StatusCodes.Status400BadRequest,
+                    Success = false
+                };
+                var lst = new List<string>();
+
+                foreach (var (key, value) in errorsModel)
+                {
+                    foreach (var subError in value)
+                    {
+                        if (!lst.Contains(key))
+                        {
+                            lst.Add(subError);
+                        }
+                    }
+                }
+                sr.Messages.AddRange(lst);
+                context.Result = new BadRequestObjectResult(sr);
 
                 return;
             }

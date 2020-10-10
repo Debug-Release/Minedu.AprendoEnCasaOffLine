@@ -7,29 +7,28 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
-    public class InsertServidorCommandHandler : IRequestHandler<InsertServidorCommand, CommandResponse>
+    public class RegistrarServidorCommandHandler : IRequestHandler<RegistrarServidorCommand, StatusResponse>
     {
         private readonly IBaseRepository<Model.Servidor> _servidorRepository;
 
-        public InsertServidorCommandHandler(IBaseRepository<Model.Servidor> servidorRepository)
+        public RegistrarServidorCommandHandler(IBaseRepository<Model.Servidor> servidorRepository)
         {
             _servidorRepository = servidorRepository;
         }
 
-        public async Task<CommandResponse> Handle(InsertServidorCommand request, CancellationToken cancellationToken)
+        public async Task<StatusResponse> Handle(RegistrarServidorCommand request, CancellationToken cancellationToken)
         {
-            var cr = new CommandResponse
+            var cr = new StatusResponse
             {
                 StatusCode = 200,
-                Success = true,
-                Msg = "El servidor se registro correctamente"
+                Success = true,                
             };
 
             var q = _servidorRepository.FirstOrDefault(x => x.ip == request.ip);
             if (q != null)
             {
                 cr.Success = false;
-                cr.Msg = "Ya existe un servidor registrado con la ip [" + request.ip + "]";
+                cr.Messages.Add("Ya existe un servidor registrado con la ip [" + request.ip + "]");
             }
             else
             {
@@ -44,6 +43,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 });
 
                 cr.Data = r.id;
+                cr.Messages.Add("El servidor se registro correctamente");
             }
 
             return await Task.FromResult(cr);

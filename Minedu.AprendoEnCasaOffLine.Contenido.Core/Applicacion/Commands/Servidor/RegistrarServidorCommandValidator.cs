@@ -2,17 +2,18 @@
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
-    public class InsertServidorCommandValidator : AbstractValidator<InsertServidorCommand>
+    public class RegistrarServidorCommandValidator : AbstractValidator<RegistrarServidorCommand>
     {
-        public InsertServidorCommandValidator()
+        public RegistrarServidorCommandValidator()
         {
             RuleFor(x => x)
                 .NotNull().WithMessage("El request no debe ser nulo")
                 .DependentRules(() =>
                 {
                     //ip4
-                    RuleFor(x => x.ip).NotEmpty().WithMessage("La ip del servidor es requerida");
-                    RuleFor(x => x.ip).MaximumLength(15).WithMessage("La ip del servidor no puede tener más de 15 caracteres.");
+                    RuleFor(x => x.ip).NotEmpty().WithMessage("La dirección ip del servidor es requerida");
+                    RuleFor(x => x.ip).MaximumLength(15).WithMessage("La dirección ip del servidor no puede tener más de 15 caracteres.");
+                    RuleFor(x => x.ip).Matches(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$").WithMessage("La dirección ip del servidor no es válido.");
 
                     //nombre
                     RuleFor(x => x.nombre).NotEmpty().WithMessage("El nombre del servidor es requerido");

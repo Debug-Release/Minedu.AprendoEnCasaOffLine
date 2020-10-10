@@ -3,7 +3,7 @@ using Release.Helper;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
-    public class InsertServidorCommand : IRequest<CommandResponse>
+    public class RegistrarServidorCommand : IRequest<StatusResponse>
     {
         public string ip { get; set; }
         public string mac { get; set; }
