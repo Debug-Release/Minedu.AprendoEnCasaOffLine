@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using Release.Helper;
 using Release.MongoDB.Repository;
@@ -12,6 +13,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 {
     public class ProgramarDescargaCommandHandler : IRequestHandler<ProgramarDescargaCommand, StatusResponse>
     {
+        private readonly ILogger<ProgramarDescargaCommandHandler> _logger;
+
         private readonly IBaseRepository<Model.Descarga> _descargaRepository;
         private readonly IBaseRepository<Model.Servidor> _servidorRepository;
         private readonly ICollectionContext<Model.Contenido> _contenidoCollection;
@@ -19,11 +22,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
         public ProgramarDescargaCommandHandler(
             IBaseRepository<Model.Descarga> descargaRepository,
             ICollectionContext<Model.Contenido> contenidoCollection,
-            IBaseRepository<Model.Servidor> servidorRepository)
+            IBaseRepository<Model.Servidor> servidorRepository, 
+            ILogger<ProgramarDescargaCommandHandler> logger)
         {
             _descargaRepository = descargaRepository;
             _contenidoCollection = contenidoCollection;
             _servidorRepository = servidorRepository;
+            _logger = logger;
         }
 
         public async Task<StatusResponse> Handle(ProgramarDescargaCommand request, CancellationToken cancellationToken)

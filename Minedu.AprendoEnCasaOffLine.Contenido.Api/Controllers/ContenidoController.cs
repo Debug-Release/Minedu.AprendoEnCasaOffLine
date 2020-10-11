@@ -34,7 +34,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpGet]
         [Route("obtenerProgramacion")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(ProgramacionDescarga))]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public async Task<IActionResult> ObtenerProgramacion(ProgramacionDescargaQuery query)
         {
             var r = await _mediator.Send(query);
@@ -45,7 +45,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("registrarServidor")]
         [SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(CommandResponse))]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> RegistrarServidor([FromBody] RegistrarServidorCommand command)
         {
             var r = await _mediator.Send(command);
@@ -56,7 +56,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("agregarContenido")]
         [SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(CommandResponse))]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> AgregarContenido([FromBody] RegistrarContenidoCommand command)
         {
             var r = await _mediator.Send(command);
@@ -67,7 +67,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("programarDescarga")]
         [SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(CommandResponse))]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarDescarga([FromBody] ProgramarDescargaCommand command)
         {
             var r = await _mediator.Send(command);
@@ -103,6 +103,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
                 FileDownloadName = file.FileName
             };
         }
+        [HttpPost]
+        [Route("actualizarDescarga")]
+        [SwaggerOperation(Summary = "Actualizar estado de descarga", Description = "Actualizar estado de descarga")]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        public async Task<IActionResult> ActualizarDescargar([FromBody] ActualizarDescargaCommand command)
+        {
+            var r = await _mediator.Send(command);
+
+            return Ok(r);
+        }
+
         /*
         [HttpGet]
         [Route("entregaByFolio/{folio}")]
