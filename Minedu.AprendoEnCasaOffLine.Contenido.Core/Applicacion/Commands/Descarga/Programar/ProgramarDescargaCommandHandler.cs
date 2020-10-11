@@ -75,7 +75,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                         x.ipServidor == request.ipServidor &&
                         x.esActivo == true &&
                         x.esEliminado == false &&
-                        x.estado == EstadoDescarga.Programado &&
+                        (x.estado == EstadoDescarga.Programado || x.estado == EstadoDescarga.Descargando) &&
                         x.contenido.id == ucc.id
                         );
 
