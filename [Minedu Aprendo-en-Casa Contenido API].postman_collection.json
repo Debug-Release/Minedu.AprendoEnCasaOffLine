@@ -1,0 +1,546 @@
+{
+	"info": {
+		"_postman_id": "94d9325d-522a-4acf-8ef9-3bb544444104",
+		"name": "[Minedu Aprendo-en-Casa Contenido API]",
+		"description": "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores\n\nContact Support:\n Name: MINEDU",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Contenido",
+			"item": [
+				{
+					"name": "/Contenido/obtenerServidores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImRmYTc0OGI0Y2ZkNjk0NDdlOTc1M2RkYzdhZjJmMDI1IiwidHlwIjoiSldUIn0.eyJuYmYiOjE2MDI0MzE5MDEsImV4cCI6MTYwMjQzNTUwMSwiaXNzIjoiaHR0cHM6Ly9mYWxhYmVsbGFwZS1hdXRoLmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjpbImh0dHBzOi8vZmFsYWJlbGxhcGUtYXV0aC5henVyZXdlYnNpdGVzLm5ldC9yZXNvdXJjZXMiLCJhcGkxIl0sImNsaWVudF9pZCI6ImRvd25sb2FkLW9mZmxpbmVfZGV2Iiwic3ViIjoiYWYyODgwMGQtZWJjNi00ZjMwLTgyY2ItMGJmZWUzMDFmODAyIiwiYXV0aF90aW1lIjoxNjAyNDMxOTAxLCJpZHAiOiJsb2NhbCIsInJvbGUiOlsiUkVBREVSIiwiV1JJVEVSIl0sIm5hbWUiOiJET1dOTE9BRE9GRkxJTkVfREVWIiwiZW1haWwiOiJ1c2VyQGRvbWFpbi5jb20iLCJsb2NhdGlvbiI6IkxpbWEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiRE9XTkxPQURPRkZMSU5FX0RFViIsInNjb3BlIjpbImVtYWlsIiwib3BlbmlkIiwicHJvZmlsZSIsImFwaTEiLCJvZmZsaW5lX2FjY2VzcyJdLCJhbXIiOlsicHdkIl19.dOXlJzR1DeUIOVH6gUx1VSibBCIFPx8Gc3K-sChHbImuOUat4cJJ_P7VFQyz5iAXWdNNXUmcajer4n3Z9wEdoE0vmMPMIITb_Dv1PTdCeTgDld34RmOw-_SnqSAZ8rXhz0ehnatuwWVBgA3QGTx8f4TTdgAVTfJfHerOGuxNMCiBLKHyeS81nvZF7HSRixLF6jIAj9DJhFILlaXcX8Yi5mLn_3_rpqptA2CCuog3j07ve2c6A7MDxXNBS9ZR_UrFMrLegZDhrZ2vieUr6NCDcZFEqqtxQyF7vn3_Ftfq--daA5vYsco8Ojk_e226jcdwjD2Q3YG9cHqNNsiOBxn_ww",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/obtenerServidores",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"obtenerServidores"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/obtenerServidores",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"obtenerServidores"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n {\n  \"ip\": \"laboris incididunt voluptate dolor ex\",\n  \"mac\": \"laborum id\",\n  \"nombre\": \"dolor amet\",\n  \"fqdn\": \"proident occaecat\",\n  \"id\": \"dolore Ut\",\n  \"fechaCreacion\": \"2002-06-06T02:58:06.474Z\",\n  \"fechaModificacion\": \"1965-12-31T19:10:10.719Z\",\n  \"esActivo\": true\n },\n {\n  \"ip\": \"in et fugiat anim consectetur\",\n  \"mac\": \"ad sunt sint labore Ut\",\n  \"nombre\": \"sint pariatur quis\",\n  \"fqdn\": \"dolor id exercitation consequat\",\n  \"id\": \"enim sint\",\n  \"fechaCreacion\": \"1955-11-04T15:46:25.199Z\",\n  \"fechaModificacion\": \"2013-05-02T17:55:52.181Z\",\n  \"esActivo\": false\n }\n]"
+						}
+					]
+				},
+				{
+					"name": "/Contenido/obtenerProgramacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/obtenerProgramacion?ipServidor=192.168.0.20",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"obtenerProgramacion"
+							],
+							"query": [
+								{
+									"key": "ipServidor",
+									"value": "192.168.0.20"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/obtenerProgramacion?ipServidor=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"obtenerProgramacion"
+									],
+									"query": [
+										{
+											"key": "ipServidor",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"data\": {},\n \"statusCode\": -11149828,\n \"messages\": [\n  \"est Duis dolor cillum\",\n  \"commodo ullamco minim qui\"\n ],\n \"success\": false\n}"
+						}
+					]
+				},
+				{
+					"name": "Contenido/registrarServidor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ip\": \"192.168.0.50\", \n  \"nombre\": \"Servidor50\",\n  \"fqdn\": \"servidor50.minedu.gob.pe\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/registrarServidor",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"registrarServidor"
+							]
+						},
+						"description": "Registrar servidor"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ip\": \"<string>\",\n    \"mac\": \"<string>\",\n    \"nombre\": \"<string>\",\n    \"fqdn\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/registrarServidor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"registrarServidor"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"statusCode\": 2282974,\n \"messages\": [\n  \"esse tempor ad cillum\",\n  \"dolor sed enim et\"\n ],\n \"success\": false,\n \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Contenido/agregarContenido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nombre\": \"Contenido 21\",\n    \"descripcion\": \"Contenido 21 actualizado\",\n    \"archivo\": \"C:\\\\app\\\\contenido21.tar.gz\",\n    \"pesoMb\": \"600Mb\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/agregarContenido",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"agregarContenido"
+							]
+						},
+						"description": "Registrar contenido a descargar"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nombre\": \"<string>\",\n    \"descripcion\": \"<string>\",\n    \"archivo\": \"<string>\",\n    \"pesoMb\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/agregarContenido",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"agregarContenido"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"statusCode\": -99876087,\n \"messages\": [\n  \"non\",\n  \"pariatur reprehenderit\"\n ],\n \"success\": true,\n \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Contenido/programarDescarga",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ipServidor\": \"192.168.0.20\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/programarDescarga",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"programarDescarga"
+							]
+						},
+						"description": "Programar descarga por servidor"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ipServidor\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/programarDescarga",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"programarDescarga"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"statusCode\": -99876087,\n \"messages\": [\n  \"non\",\n  \"pariatur reprehenderit\"\n ],\n \"success\": true,\n \"data\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Contenido/actualizarDescarga",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"idDescarga\": \"<string>\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Contenido/actualizarDescarga",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Contenido",
+								"actualizarDescarga"
+							]
+						},
+						"description": "Actualizar estado de descarga"
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"idDescarga\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Contenido/actualizarDescarga",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Contenido",
+										"actualizarDescarga"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"statusCode\": -99876087,\n \"messages\": [\n  \"non\",\n  \"pariatur reprehenderit\"\n ],\n \"success\": true,\n \"data\": {}\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "/security/token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg==",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "DOWNLOADOFFLINE_DEV",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "client_id",
+						"value": "download-offline_dev",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/security/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"security",
+						"token"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/security/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"security",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"expires_in\": 4457968,\n \"access_token\": \"ut et laboris exercitation fugiat\",\n \"token_type\": \"dolor\",\n \"refresh_token\": \"eiusmod dolore\",\n \"error_description\": \"dolore in\",\n \"error\": \"dolor quis occaecat labore veniam\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3a512c10-ca7d-4c68-bfa6-99b52427c56f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3e85ac4f-6d32-4d3e-841b-8d682c27cf63",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "7d273258-26b9-48c3-9c54-d8bf8ed66e37",
+			"key": "baseUrl",
+			"value": "/"
+		},
+		{
+			"id": "9fcaa594-85e4-4058-899d-9f12e90e9bf5",
+			"key": "access_token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
