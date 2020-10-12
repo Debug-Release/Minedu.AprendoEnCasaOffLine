@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using Release.Helper;
 using Release.MongoDB.Repository;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -42,10 +43,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                 if (q != null)
                 {
                     //Leer Archivo de disco
-                    //Por ahora esta de esta forma...falta tunear
-                    if (System.IO.File.Exists(q.contenido.archivo))
+
+                    string pathArchivos = Functions.GetEnvironmentVariable("RUTA_ARCHIVOS");
+                    pathArchivos = Path.Combine(pathArchivos, q.contenido.archivo);
+
+                    if (File.Exists(pathArchivos))
                     {
-                        _logger.LogInformation($"Inicia Lectura de archivo:{q.contenido.archivo}");
+                        _logger.LogInformation($"Inicia Lectura de archivo:{pathArchivos}");
 
                         //Marcar descarga Descargando
 
@@ -55,19 +59,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
 
                         await _descargaRepository.UpdateOneAsync(q.id, q);
 
-                        _logger.LogInformation($"El archivo:{q.contenido.archivo} está en estado descargando...");
+                        _logger.LogInformation($"El archivo:{pathArchivos} está en estado descargando...");
 
-                        sr.FileBytes = await System.IO.File.ReadAllBytesAsync(q.contenido.archivo);
+                        sr.FileBytes = await System.IO.File.ReadAllBytesAsync(pathArchivos);
                         sr.FileName = System.IO.Path.GetFileName(q.contenido.archivo);
                         sr.ContentType = "application/gzip";
                         sr.Exists = true;
 
-                        _logger.LogInformation($"Termina Lectura de archivo:{q.contenido.archivo}");
+                        _logger.LogInformation($"Termina Lectura de archivo:{pathArchivos}");
                     }
                     else
                     {
                         sr.Exists = false;
-                        _logger.LogWarning($"El archivo:{q.contenido.archivo} no existe");
+                        _logger.LogWarning($"El archivo:{pathArchivos} no existe");
                     }
 
                 }

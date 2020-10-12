@@ -2,6 +2,7 @@
 using Release.Helper;
 using Release.MongoDB.Repository;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 cr.Messages.Add("Ya existe un contenido registrado con el nombre [" + request.nombre + "]");
             }
             else
-            {
+            {               
                 var r = await _contenidoRepository.InsertOneAsync(new Model.Contenido
                 {
                     nombre = request.nombre,

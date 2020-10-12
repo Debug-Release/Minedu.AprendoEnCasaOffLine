@@ -5,6 +5,7 @@
 #ENV ASPNETCORE_MONGODB mongo
 #ENV HORA_DESCARGA_INICIO 02:00:00
 #ENV HORA_DESCARGA_INTERVALO 01:00:00
+#ENV RUTA_ARCHIVOS /app/archivos
 
 #COPY /bin/Publish/ /app/
 #WORKDIR /app
@@ -16,6 +17,7 @@ ENV ASPNETCORE_CORS http://localhost:4200
 ENV ASPNETCORE_MONGODB mongo
 ENV HORA_DESCARGA_INICIO 02:00:00
 ENV HORA_DESCARGA_INTERVALO 01:00:00
+ENV RUTA_ARCHIVOS /app/archivos
 
 COPY *.sln ./
 COPY Minedu.AprendoEnCasaOffLine.Contenido.Api ./Minedu.AprendoEnCasaOffLine.Contenido.Api/
@@ -27,7 +29,7 @@ RUN dotnet publish "Minedu.AprendoEnCasaOffLine.Contenido.Api.csproj" -c Release
 
 # Imagen final
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
 WORKDIR /app
 
 COPY --from=build /app/Minedu.AprendoEnCasaOffLine.Contenido.Api/out .
@@ -37,5 +39,6 @@ ENV ASPNETCORE_CORS http://localhost:4200
 ENV ASPNETCORE_MONGODB mongo
 ENV HORA_DESCARGA_INICIO 02:00:00
 ENV HORA_DESCARGA_INTERVALO 01:00:00
+ENV RUTA_ARCHIVOS /app/archivos
 
 ENTRYPOINT ["dotnet", "Minedu.AprendoEnCasaOffLine.Contenido.Api.dll"]

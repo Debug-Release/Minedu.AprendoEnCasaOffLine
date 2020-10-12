@@ -14,6 +14,7 @@ services:
       ASPNETCORE_CORS: "*"
       HORA_DESCARGA_INICIO: "02:00:00"     
       HORA_DESCARGA_INTERVALO: "01:00:00"
+      RUTA_ARCHIVOS: "/app/archivos"
       #IS4
       IS4_URL: "https://falabellape-auth.azurewebsites.net"
       IS4_CLIENT_ID: "download-offline_dev"
@@ -26,7 +27,7 @@ services:
     volumes:
     - /c/app/_certificates/:/https/
     - /c/app/_log/aprendo-en-casa-offline-contenido.api:/app/Log
-
+    - /c/app/archivos:/app/archivos
     restart: on-failure
 networks:
     ms:
