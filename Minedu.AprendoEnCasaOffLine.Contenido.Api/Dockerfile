@@ -20,11 +20,12 @@ ENV HORA_DESCARGA_INTERVALO 01:00:00
 ENV RUTA_ARCHIVOS /app/archivos
 
 COPY *.sln ./
+
 COPY Minedu.AprendoEnCasaOffLine.Contenido.Api ./Minedu.AprendoEnCasaOffLine.Contenido.Api/
 COPY Minedu.AprendoEnCasaOffLine.Contenido.Core ./Minedu.AprendoEnCasaOffLine.Contenido.Core/
 
 WORKDIR /app/Minedu.AprendoEnCasaOffLine.Contenido.Api
-RUN dotnet restore 
+RUN dotnet restore "Minedu.AprendoEnCasaOffLine.Contenido.Api.csproj" --configfile NuGet.config -nowarn:msb3202,nu1503 
 RUN dotnet publish "Minedu.AprendoEnCasaOffLine.Contenido.Api.csproj" -c Release -o out
 
 # Imagen final
@@ -34,7 +35,7 @@ WORKDIR /app
 
 COPY --from=build /app/Minedu.AprendoEnCasaOffLine.Contenido.Api/out .
 EXPOSE 80
-EXPOSE 443
+#EXPOSE 443
 ENV ASPNETCORE_CORS http://localhost:4200
 ENV ASPNETCORE_MONGODB mongo
 ENV HORA_DESCARGA_INICIO 02:00:00
