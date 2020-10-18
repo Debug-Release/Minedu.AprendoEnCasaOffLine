@@ -103,14 +103,14 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-                c.RoutePrefix = "docs";
+                c.RoutePrefix = "swagger";
             });
 
             app.UseHttpsRedirection();
             app.UseMvc();
 
             string color = env.IsDevelopment() ? "Gray" : "Green";
-            string href = env.IsDevelopment() ? $"<a href='/docs'>{env.EnvironmentName}</a>" : env.EnvironmentName;
+            string href = $"<a href='/swagger'>{env.EnvironmentName}</a>";
 
             app.Run(context =>
                 context.Response.WriteAsync($"<h1 style='color:{color};'>[MS.Api] Environment: {href}</h1>")

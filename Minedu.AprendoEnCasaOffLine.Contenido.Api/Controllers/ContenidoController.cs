@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     //[ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]

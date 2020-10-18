@@ -10,7 +10,7 @@ services:
     container_name: aprendo-en-casa-offline-contenido.api
     environment:
       ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_MONGODB: "mongodb://root:root@192.168.0.7:27017/contenidoDB?authSource=admin"
+      ASPNETCORE_MONGODB: "mongodb://root:root@192.168.100.32:27017/contenidoDB?authSource=admin"
       ASPNETCORE_CORS: "*"
       HORA_DESCARGA_INICIO: "02:00:00"     
       HORA_DESCARGA_INTERVALO: "01:00:00"
