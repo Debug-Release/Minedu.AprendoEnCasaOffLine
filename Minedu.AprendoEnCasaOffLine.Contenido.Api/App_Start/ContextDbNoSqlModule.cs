@@ -4,6 +4,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Release.Helper;
 using Release.MongoDB.Repository;
+using Release.MongoDB.Repository.Base;
 using System;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
@@ -61,11 +62,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
                 .InstancePerDependency();
 
-            /*
+            
             builder.RegisterGeneric(typeof(CustomBaseRepository<>))
                 .As(typeof(ICustomBaseRepository<>))
+                .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
                 .InstancePerDependency();
-            */
+            
 
         }
 

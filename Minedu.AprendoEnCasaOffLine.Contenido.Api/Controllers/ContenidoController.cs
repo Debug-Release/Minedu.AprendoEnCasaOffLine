@@ -5,6 +5,7 @@ using Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 using Release.Helper;
+using Release.Helper.Pagination;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
@@ -29,6 +30,16 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         public async Task<IActionResult> ObtenerServidores()
         {
             var query = new ServidorQuery();
+            var r = await _mediator.Send(query);
+
+            return Ok(r);
+        }
+        [HttpGet]
+        [Route("obtenerContenido")]
+        [SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
+        public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)
+        {           
             var r = await _mediator.Send(query);
 
             return Ok(r);
@@ -75,7 +86,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
             return Ok(r);
         }
-        
+
         [HttpGet("descargar")]
         [SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
         public async Task<ActionResult> DownloadAsync(string id)
@@ -101,6 +112,6 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             var r = await _mediator.Send(command);
 
             return Ok(r);
-        }        
+        }
     }
 }
