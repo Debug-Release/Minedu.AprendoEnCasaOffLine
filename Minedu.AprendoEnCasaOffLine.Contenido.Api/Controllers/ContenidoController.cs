@@ -86,6 +86,16 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
             return Ok(r);
         }
+        [HttpPost]
+        [Route("programarTodoDescarga")]
+        [SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        public async Task<IActionResult> ProgramarTodoDescarga([FromBody] ProgramarTodoDescargaCommand command)
+        {
+            var r = await _mediator.Send(command);
+
+            return Ok(r);
+        }
 
         [HttpGet("descargar")]
         [SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]

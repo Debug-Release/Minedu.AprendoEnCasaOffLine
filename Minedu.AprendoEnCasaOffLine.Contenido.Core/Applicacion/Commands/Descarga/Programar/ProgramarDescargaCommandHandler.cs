@@ -22,7 +22,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
         public ProgramarDescargaCommandHandler(
             IBaseRepository<Model.Descarga> descargaRepository,
             ICollectionContext<Model.Contenido> contenidoCollection,
-            IBaseRepository<Model.Servidor> servidorRepository, 
+            IBaseRepository<Model.Servidor> servidorRepository,
             ILogger<ProgramarDescargaCommandHandler> logger)
         {
             _descargaRepository = descargaRepository;
@@ -42,6 +42,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             var hdinicio = Functions.GetEnvironmentVariable("HORA_DESCARGA_INICIO");
             var hdintervalo = Functions.GetEnvironmentVariable("HORA_DESCARGA_INTERVALO");
+            int sintervalo = int.Parse(Functions.GetEnvironmentVariable("SERVIDOR_INTERVALO"));
 
             DateTime dHoraInicio = DateTime.ParseExact(hdinicio, "hh:mm:ss", null);
             TimeSpan tsHoraIntervalo = TimeSpan.Parse(hdintervalo);
@@ -87,9 +88,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 return await Task.FromResult(sr);
             }
 
-            if (dHoraInicio > DateTime.Now)
-            {
+            var pNow = DateTime.Now;
+            var currentTime = new TimeSpan(pNow.Hour, pNow.Minute, pNow.Second);
+            var inicioTime = new TimeSpan(dHoraInicio.Hour, dHoraInicio.Minute, dHoraInicio.Second);
 
+            if (currentTime >= inicioTime)
+            {
+                dHoraInicio = dHoraInicio.AddDays(1);
             }
 
             var r = await _descargaRepository.InsertOneAsync(new Model.Descarga
