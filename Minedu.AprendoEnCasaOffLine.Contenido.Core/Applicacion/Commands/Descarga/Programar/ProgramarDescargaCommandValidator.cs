@@ -10,21 +10,20 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 .NotNull().WithMessage("El request no debe ser nulo")
                 .DependentRules(() =>
                 {
-                    //idContenido
-                    /*
-                    RuleFor(x => x.idContenido).NotEmpty().WithMessage("El id del contenido es requerido");
+                    //idContenido             
                     When(x => !string.IsNullOrEmpty(x.idContenido), () =>
                     {
                         RuleFor(x => x.idContenido).Matches(@"[0-9a-fA-F]{24}").WithMessage("El formato del id del contenido no es válido.");
                     });
-                    */
+
                     //idServidor
                     RuleFor(x => x.ipServidor).NotEmpty().WithMessage("La dirección ip del servidor es requerida");
+                    /*Comentado para probar
                     When(x => !string.IsNullOrEmpty(x.ipServidor), () =>
                     {
                         RuleFor(x => x.ipServidor).Matches(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$").WithMessage("La dirección ip del servidor no es válido.");
                     });
-
+                    */
                 });
         }
     }

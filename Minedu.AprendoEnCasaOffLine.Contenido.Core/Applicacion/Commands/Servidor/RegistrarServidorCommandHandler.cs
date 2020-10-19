@@ -24,10 +24,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 StatusCode = 200,
                 Success = true,
             };
-            
-            //Insertar 18000 servidores
             /*
-            var servers = Enumerable.Range(1, 18000).Select(c => new Model.Servidor
+            //Insertar 18000 servidores
+            
+            var servers = Enumerable.Range(1, 50).Select(c => new Model.Servidor
             {
                 ip = "ipserver" + c,
                 nombre = "server" + c,

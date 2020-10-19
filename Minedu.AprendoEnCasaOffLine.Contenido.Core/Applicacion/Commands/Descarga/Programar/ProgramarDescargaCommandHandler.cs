@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Release.Helper;
 using Release.MongoDB.Repository;
@@ -39,7 +40,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 Success = true,
             };
 
-
+            Model.Contenido contenido = null;
             var hdinicio = Functions.GetEnvironmentVariable("HORA_DESCARGA_INICIO");
             var hdintervalo = Functions.GetEnvironmentVariable("HORA_DESCARGA_INTERVALO");
             int sintervalo = int.Parse(Functions.GetEnvironmentVariable("SERVIDOR_INTERVALO"));
@@ -55,16 +56,28 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 //Return 1
                 return await Task.FromResult(sr);
             }
-            //ultimoContenido Cargado
-            var filter = Builders<Model.Contenido>.Filter.Where(s => s.estado == EstadoContenido.Cargado &&
-                                                                s.esEliminado == false &&
-                                                                s.esActivo == true);
-            var ucc = await _contenidoCollection.Context().Find<Model.Contenido>(filter)
-                                                                      .Limit(1)
-                                                                      .SortByDescending(f => f.fechaCreacion)
-                                                                      .FirstOrDefaultAsync();
+            if (!string.IsNullOrWhiteSpace(request.idContenido))
+            {
+                var filter = Builders<Model.Contenido>.Filter.Where(s => s.id == ObjectId.Parse(request.idContenido) &&
+                                                                         s.estado == EstadoContenido.Cargado &&
+                                                                         s.esEliminado == false &&
+                                                                         s.esActivo == true);
+                contenido = await _contenidoCollection.Context().Find<Model.Contenido>(filter)
+                                                                          .FirstOrDefaultAsync();
+            }
+            else
+            {
+                //ultimo Contenido Cargado
+                var filter = Builders<Model.Contenido>.Filter.Where(s => s.estado == EstadoContenido.Cargado &&
+                                                                                s.esEliminado == false &&
+                                                                                s.esActivo == true);
+                contenido = await _contenidoCollection.Context().Find<Model.Contenido>(filter)
+                                                                          .Limit(1)
+                                                                          .SortByDescending(f => f.fechaCreacion)
+                                                                          .FirstOrDefaultAsync();
+            }
 
-            if (ucc == null)
+            if (contenido == null)
             {
                 sr.Messages.Add("No se encuentra disponible contenido para descargar");
                 sr.Success = false;
@@ -72,17 +85,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 return await Task.FromResult(sr);
             }
 
-            var qProgramcion = _descargaRepository.FirstOrDefault(x =>
+            var validDescarga = _descargaRepository.FirstOrDefault(x =>
                         x.ipServidor == request.ipServidor &&
                         x.esActivo == true &&
                         x.esEliminado == false &&
                         (x.estado == EstadoDescarga.Programado || x.estado == EstadoDescarga.Descargando) &&
-                        x.contenido.id == ucc.id
+                        x.contenido.id == contenido.id
                         );
 
-            if (qProgramcion != null)
+            if (validDescarga != null)
             {
-                sr.Messages.Add($"Hay una descarga programada con el contenido [{ucc.nombre}]");
+                sr.Messages.Add($"Hay una descarga programada con el contenido [{contenido.nombre}]");
                 sr.Success = false;
                 //Return 3
                 return await Task.FromResult(sr);
@@ -90,23 +103,45 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             var pNow = DateTime.Now;
             var currentTime = new TimeSpan(pNow.Hour, pNow.Minute, pNow.Second);
-            var inicioTime = new TimeSpan(dHoraInicio.Hour, dHoraInicio.Minute, dHoraInicio.Second);
+            var startTime = new TimeSpan(dHoraInicio.Hour, dHoraInicio.Minute, dHoraInicio.Second);
 
-            if (currentTime >= inicioTime)
+            var dProgramadas = _descargaRepository.Query(x =>
+                 //x.ipServidor == request.ipServidor &&
+                 x.esActivo == true &&
+                 x.esEliminado == false &&
+                 (x.estado == EstadoDescarga.Programado || x.estado == EstadoDescarga.Descargando) &&
+                 x.contenido.id == contenido.id
+             );
+
+            if (currentTime >= startTime)
             {
                 dHoraInicio = dHoraInicio.AddDays(1);
+            }
+
+            if (dProgramadas.Any())
+            {
+                var maxFechaProgramada = dProgramadas.Max(p => p.fechaProgramada);
+                var countDescargasProgramadas = dProgramadas.Count(c => c.fechaProgramada == maxFechaProgramada) + 1;
+                if (countDescargasProgramadas <= sintervalo)
+                {
+                    dHoraInicio = maxFechaProgramada;
+                }
+                else
+                {
+                    dHoraInicio = maxFechaProgramada.Add(tsHoraIntervalo);
+                }
             }
 
             var r = await _descargaRepository.InsertOneAsync(new Model.Descarga
             {
                 contenido = new Model.ContenidoDescarga
                 {
-                    id = ucc.id,
-                    nombre = ucc.nombre,
-                    fechaCreacion = (ucc.fechaModificacion == null ? ucc.fechaCreacion : ucc.fechaModificacion.Value),
-                    descripcion = ucc.descripcion,
-                    archivo = ucc.archivo,
-                    pesoMb = ucc.pesoMb
+                    id = contenido.id,
+                    nombre = contenido.nombre,
+                    fechaCreacion = (contenido.fechaModificacion == null ? contenido.fechaCreacion : contenido.fechaModificacion.Value),
+                    descripcion = contenido.descripcion,
+                    archivo = contenido.archivo,
+                    pesoMb = contenido.pesoMb
                 },
                 fechaProgramada = dHoraInicio,
                 ipServidor = request.ipServidor,
@@ -115,8 +150,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 fechaCreacion = DateTime.Now
             });
 
-            sr.Data = r.id;
-            sr.Messages.Add("La descarga ha sido programada correctamente");
+            sr.Messages.Add($"La descarga ha sido programada correctamente para servidor [{request.ipServidor}]");
 
             return await Task.FromResult(sr);
         }

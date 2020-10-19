@@ -82,9 +82,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             var pNow = DateTime.Now;
             var currentTime = new TimeSpan(pNow.Hour, pNow.Minute, pNow.Second);
-            var inicioTime = new TimeSpan(dHoraInicio.Hour, dHoraInicio.Minute, dHoraInicio.Second);
+            var startTime = new TimeSpan(dHoraInicio.Hour, dHoraInicio.Minute, dHoraInicio.Second);
 
-            if (currentTime >= inicioTime)
+            if (currentTime >= startTime)
             {
                 dHoraInicio = dHoraInicio.AddDays(1);
             }
