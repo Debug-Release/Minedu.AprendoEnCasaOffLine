@@ -43,7 +43,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                 if (q != null)
                 {
                     //validar la hora de la consulta y la hora programada
-                    if (DateTime.Now >= q.fechaProgramada)
+                    //if (DateTime.Now >= q.fechaProgramada)
+                    if (1 == 1)
                     {
                         //Leer Archivo de disco
 
@@ -80,7 +81,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                     else
                     {
                         sr.Exists = false;
-                        
+
                         _logger.LogWarning($"La hora de consulta de descarga aun no supera la hora programada");
                     }
 
