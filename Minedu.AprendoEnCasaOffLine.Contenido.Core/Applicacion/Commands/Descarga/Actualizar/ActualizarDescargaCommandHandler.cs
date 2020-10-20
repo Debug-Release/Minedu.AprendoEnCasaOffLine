@@ -37,14 +37,40 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             if (q != null)
             {
-                q.estado = EstadoDescarga.Descargado;
+                if (request.extraido && request.procesado)
+                {
+                    q.estado = EstadoDescarga.Descargado;
+                }
+                else
+                {
+                    q.estado = EstadoDescarga.Error;
+                }
+
                 q.fechaModificacion = DateTime.Now;
                 q.fechaFin = q.fechaModificacion;
 
                 await _descargaRepository.UpdateOneAsync(q.id, q);
 
-                sr.Success = true;                
-                sr.Messages.Add($"La descarga del contenido [{q.contenido.nombre}] se actualizó correctamente a estado descargado");
+                sr.Success = true;
+                sr.Messages.Add($"La descarga del contenido [{q.contenido.nombre}] se actualizó correctamente");
+
+                //Persiste ack json
+                try
+                {
+                    var rutaACK = Functions.GetEnvironmentVariable("RUTA_ACK");
+                    string ackname = $"aeco_paq_ack-{request.fecha.ToString("yyyy-MM-dd_hhmmss")}.json";
+                    string pathJson = System.IO.Path.Combine(rutaACK, ackname);
+                    string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+                    await System.IO.File.WriteAllTextAsync(pathJson, jsonData);
+
+                    _logger.LogInformation($"El ack para {request.nombrearchivo} se guardo correctamente");
+                }
+                catch (Exception ex)
+                {
+
+                    _logger.LogError(ex, $"Error al escribir el ack {request.nombrearchivo}");
+                }
+
             }
             else
             {

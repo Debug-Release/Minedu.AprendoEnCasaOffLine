@@ -11,7 +11,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
 {
     public class ProgramacionDescargaQuery : IRequest<StatusResponse<VM.ProgramacionDescarga>>
     {
-        public string ipServidor { get; set; }
+        public string macServidor { get; set; }
 
         #region Handler
 
@@ -27,7 +27,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                 var sr = new StatusResponse<VM.ProgramacionDescarga>();
 
                 var q = _descargaRepository.FirstOrDefault(x =>
-                        x.ipServidor == request.ipServidor &&
+                        x.macServidor == request.macServidor &&
                         x.esActivo == true &&
                         x.esEliminado == false &&
                         x.estado == EstadoDescarga.Programado
@@ -44,7 +44,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                         esActivo = q.esActivo,
                         fechaCreacion = q.fechaCreacion,
                         fechaModificacion = q.fechaModificacion,
-                        ipServidor = q.ipServidor,
+                        macServidor = q.macServidor,
                         contenido = new VM.Contenido
                         {
                             id = q.contenido.id.ToString(),
@@ -67,7 +67,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                 {
                     sr.Success = false;
                     sr.StatusCode = 200;
-                    sr.Messages.Add($"No existe descargas programadas para el servidor [{request.ipServidor}]");
+                    sr.Messages.Add($"No existe descargas programadas para el servidor [mac:{request.macServidor}]");
                 }
 
                 return await Task.FromResult(sr);

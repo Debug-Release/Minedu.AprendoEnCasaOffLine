@@ -94,10 +94,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             int interval = sintervalo;
             int count = serversActivos.Count();
 
-            var ips = serversActivos.Select(g => g.ip);
+            var macs = serversActivos.Select(g => g.mac);
 
             var validDescargas = _descargaRepository.Query(x =>
-                    ips.Contains(x.ipServidor) &&
+                    macs.Contains(x.macServidor) &&
                     x.esActivo == true &&
                     x.esEliminado == false &&
                     (x.estado == EstadoDescarga.Programado || x.estado == EstadoDescarga.Descargando) &&
@@ -110,16 +110,16 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     interval = count - i;
                 }
                 var rangeServers = serversActivos.GetRange(i, interval);
-                
+
                 var nDescargas = new List<Model.Descarga>();
 
                 foreach (var server in rangeServers)
                 {
-                    var qProgramcion = validDescargas.FirstOrDefault(h => h.ipServidor == server.ip);
+                    var qProgramcion = validDescargas.FirstOrDefault(h => h.macServidor == server.mac);
 
                     if (qProgramcion != null)
                     {
-                        sr.Messages.Add($"Hay una descarga programada para el servidor [{server.ip}] con el contenido [{contenido.nombre}]");
+                        sr.Messages.Add($"Hay una descarga programada para el servidor [mac:{server.mac}] con el contenido [{contenido.nombre}]");
                     }
                     else
                     {
@@ -135,7 +135,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                                 pesoMb = contenido.pesoMb
                             },
                             fechaProgramada = dHoraInicio,
-                            ipServidor = server.ip,
+                            macServidor = server.mac,
                             estado = EstadoDescarga.Programado,
                             esActivo = true,
                             fechaCreacion = DateTime.Now

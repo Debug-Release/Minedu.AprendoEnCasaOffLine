@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     //[ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]
@@ -88,6 +88,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpPost]
         [Route("programarTodoDescarga")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarTodoDescarga([FromBody] ProgramarTodoDescargaCommand command)
@@ -114,8 +115,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             };
         }
         [HttpPost]
-        [Route("actualizarDescarga")]
-        [SwaggerOperation(Summary = "Actualizar estado de descarga", Description = "Actualizar estado de descarga")]
+        [Route("recibirACK")]
+        [SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ActualizarDescargar([FromBody] ActualizarDescargaCommand command)
         {

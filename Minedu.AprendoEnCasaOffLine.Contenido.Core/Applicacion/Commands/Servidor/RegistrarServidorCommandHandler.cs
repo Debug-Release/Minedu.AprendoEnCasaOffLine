@@ -24,10 +24,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 StatusCode = 200,
                 Success = true,
             };
-            /*
+
             //Insertar 18000 servidores
-            
-            var servers = Enumerable.Range(1, 50).Select(c => new Model.Servidor
+            /*
+            var servers = Enumerable.Range(1, 18000).Select(c => new Model.Servidor
             {
                 ip = "ipserver" + c,
                 nombre = "server" + c,
@@ -39,11 +39,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             await _servidorRepository.InsertManyAsync(servers, true);
             */
-            var q = _servidorRepository.FirstOrDefault(x => x.ip == request.ip);
+            var q = _servidorRepository.FirstOrDefault(x => x.mac.ToUpper() == request.mac.ToUpper());
             if (q != null)
             {
                 cr.Success = false;
-                cr.Messages.Add("Ya existe un servidor registrado con la ip [" + request.ip + "]");
+                cr.Messages.Add("Ya existe un servidor registrado con la dirección mac [" + request.mac + "]");
             }
             else
             {
@@ -58,7 +58,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 });
 
                 cr.Data = r.id;
-                cr.Messages.Add("El servidor se registro correctamente");
+                cr.Messages.Add($"El servidor [{request.nombre}] se registro correctamente");
             }
 
             return await Task.FromResult(cr);

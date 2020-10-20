@@ -13,7 +13,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Model
     public class Descarga : EntityToLower<ObjectId>
     {       
         public ContenidoDescarga contenido { get; set; }      
-        public string ipServidor { get; set; }
+        public string macServidor { get; set; }
         public DateTime fechaProgramada { get; set; }
         public DateTime? fechaInicio { get; set; }
         public DateTime? fechaFin { get; set; }

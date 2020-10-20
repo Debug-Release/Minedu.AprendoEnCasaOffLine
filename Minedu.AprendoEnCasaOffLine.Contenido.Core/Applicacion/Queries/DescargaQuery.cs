@@ -42,36 +42,46 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
 
                 if (q != null)
                 {
-                    //Leer Archivo de disco
-
-                    string pathArchivos = Functions.GetEnvironmentVariable("RUTA_ARCHIVOS");
-                    pathArchivos = Path.Combine(pathArchivos, q.contenido.archivo);
-
-                    if (File.Exists(pathArchivos))
+                    //validar la hora de la consulta y la hora programada
+                    if (DateTime.Now >= q.fechaProgramada)
                     {
-                        _logger.LogInformation($"Inicia Lectura de archivo:{pathArchivos}");
+                        //Leer Archivo de disco
 
-                        //Marcar descarga Descargando
+                        string pathArchivos = Functions.GetEnvironmentVariable("RUTA_ARCHIVOS");
+                        pathArchivos = Path.Combine(pathArchivos, q.contenido.archivo);
 
-                        q.estado = EstadoDescarga.Descargando;
-                        q.fechaModificacion = DateTime.Now;
-                        q.fechaInicio = q.fechaModificacion;
+                        if (File.Exists(pathArchivos))
+                        {
+                            _logger.LogInformation($"Inicia Lectura de archivo:{pathArchivos}");
 
-                        await _descargaRepository.UpdateOneAsync(q.id, q);
+                            //Marcar descarga Descargando
 
-                        _logger.LogInformation($"El archivo:{pathArchivos} está en estado descargando...");
+                            q.estado = EstadoDescarga.Descargando;
+                            q.fechaModificacion = DateTime.Now;
+                            q.fechaInicio = q.fechaModificacion;
 
-                        sr.FileBytes = await System.IO.File.ReadAllBytesAsync(pathArchivos);
-                        sr.FileName = System.IO.Path.GetFileName(q.contenido.archivo);
-                        sr.ContentType = "application/gzip";
-                        sr.Exists = true;
+                            await _descargaRepository.UpdateOneAsync(q.id, q);
 
-                        _logger.LogInformation($"Termina Lectura de archivo:{pathArchivos}");
+                            _logger.LogInformation($"El archivo:{pathArchivos} está en estado descargando...");
+
+                            sr.FileBytes = await System.IO.File.ReadAllBytesAsync(pathArchivos);
+                            sr.FileName = System.IO.Path.GetFileName(q.contenido.archivo);
+                            sr.ContentType = "application/gzip";
+                            sr.Exists = true;
+
+                            _logger.LogInformation($"Termina Lectura de archivo:{pathArchivos}");
+                        }
+                        else
+                        {
+                            sr.Exists = false;
+                            _logger.LogWarning($"El archivo:{pathArchivos} no existe");
+                        }
                     }
                     else
                     {
                         sr.Exists = false;
-                        _logger.LogWarning($"El archivo:{pathArchivos} no existe");
+                        
+                        _logger.LogWarning($"La hora de consulta de descarga aun no supera la hora programada");
                     }
 
                 }

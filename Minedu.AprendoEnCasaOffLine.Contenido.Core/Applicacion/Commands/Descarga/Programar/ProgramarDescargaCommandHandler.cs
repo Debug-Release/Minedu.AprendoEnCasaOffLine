@@ -56,6 +56,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 //Return 1
                 return await Task.FromResult(sr);
             }
+            /*
             if (!string.IsNullOrWhiteSpace(request.idContenido))
             {
                 var filter = Builders<Model.Contenido>.Filter.Where(s => s.id == ObjectId.Parse(request.idContenido) &&
@@ -66,16 +67,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                                                                           .FirstOrDefaultAsync();
             }
             else
-            {
-                //ultimo Contenido Cargado
-                var filter = Builders<Model.Contenido>.Filter.Where(s => s.estado == EstadoContenido.Cargado &&
-                                                                                s.esEliminado == false &&
-                                                                                s.esActivo == true);
-                contenido = await _contenidoCollection.Context().Find<Model.Contenido>(filter)
-                                                                          .Limit(1)
-                                                                          .SortByDescending(f => f.fechaCreacion)
-                                                                          .FirstOrDefaultAsync();
-            }
+            */
+            //{
+            //ultimo Contenido Cargado
+            var filter = Builders<Model.Contenido>.Filter.Where(s => s.estado == EstadoContenido.Cargado &&
+                                                                            s.esEliminado == false &&
+                                                                            s.esActivo == true);
+            contenido = await _contenidoCollection.Context().Find<Model.Contenido>(filter)
+                                                                      .Limit(1)
+                                                                      .SortByDescending(f => f.fechaCreacion)
+                                                                      .FirstOrDefaultAsync();
+            //}
 
             if (contenido == null)
             {
@@ -86,7 +88,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             }
 
             var validDescarga = _descargaRepository.FirstOrDefault(x =>
-                        x.ipServidor == request.ipServidor &&
+                        x.macServidor.ToUpper() == request.macServidor.ToUpper() &&
                         x.esActivo == true &&
                         x.esEliminado == false &&
                         (x.estado == EstadoDescarga.Programado || x.estado == EstadoDescarga.Descargando) &&
@@ -144,13 +146,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     pesoMb = contenido.pesoMb
                 },
                 fechaProgramada = dHoraInicio,
-                ipServidor = request.ipServidor,
+                macServidor = request.macServidor,
                 estado = EstadoDescarga.Programado,
                 esActivo = true,
                 fechaCreacion = DateTime.Now
             });
 
-            sr.Messages.Add($"La descarga ha sido programada correctamente para servidor [{request.ipServidor}]");
+            sr.Messages.Add($"La descarga ha sido programada correctamente para servidor [mac:{request.macServidor}]");
 
             return await Task.FromResult(sr);
         }
@@ -160,10 +162,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             var v = new List<string>();
 
             //validar servidor
-            var servidor = _servidorRepository.FirstOrDefault(x => x.ip == request.ipServidor);
+            var servidor = _servidorRepository.FirstOrDefault(x => x.mac.ToUpper() == request.macServidor.ToUpper());
             if (servidor == null)
             {
-                string m = $"La dirección ip del servidor [{request.ipServidor}] no está registrada";
+                string m = $"La dirección mac del servidor [mac:{request.macServidor}] no está registrada";
                 v.Add(m);
             }
 

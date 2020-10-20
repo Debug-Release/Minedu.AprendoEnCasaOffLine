@@ -11,19 +11,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 .DependentRules(() =>
                 {
                     //idContenido             
-                    When(x => !string.IsNullOrEmpty(x.idContenido), () =>
+                    //When(x => !string.IsNullOrEmpty(x.idContenido), () =>
+                    //{
+                    //    RuleFor(x => x.idContenido).Matches(@"[0-9a-fA-F]{24}").WithMessage("El formato del id del contenido no es válido.");
+                    //});
+
+                    //ipServidor
+                    RuleFor(x => x.macServidor).NotEmpty().WithMessage("La dirección mac del servidor es requerida");
+
+                    When(x => !string.IsNullOrEmpty(x.macServidor), () =>
                     {
-                        RuleFor(x => x.idContenido).Matches(@"[0-9a-fA-F]{24}").WithMessage("El formato del id del contenido no es válido.");
+                        RuleFor(x => x.macServidor).MaximumLength(30).WithMessage("La dirección mac del servidor no puede tener más de 30 caracteres.");
                     });
 
-                    //idServidor
-                    RuleFor(x => x.ipServidor).NotEmpty().WithMessage("La dirección ip del servidor es requerida");
-                    
-                    When(x => !string.IsNullOrEmpty(x.ipServidor), () =>
-                    {
-                        RuleFor(x => x.ipServidor).Matches(@"^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$").WithMessage("La dirección ip del servidor no es válido.");
-                    });
-                    
                 });
         }
     }
