@@ -36,7 +36,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpGet]
         [Route("obtenerContenido")]
-        [SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
+        //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
         public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)
         {           
@@ -67,7 +67,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("agregarContenido")]
-        [SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
+        //[SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> AgregarContenido([FromBody] RegistrarContenidoCommand command)
         {
@@ -78,7 +78,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("programarDescarga")]
-        [SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
+        //[SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarDescarga([FromBody] ProgramarDescargaCommand command)
         {
@@ -89,7 +89,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("programarTodoDescarga")]
         [ApiExplorerSettings(IgnoreApi = true)]
-        [SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
+        //[SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarTodoDescarga([FromBody] ProgramarTodoDescargaCommand command)
         {
@@ -99,7 +99,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpGet("descargar")]
-        [SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
+        //[SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
         public async Task<ActionResult> DownloadAsync(string id)
         {
             var file = await _mediator.Send(new DescargaQuery { idDescarga = id });
@@ -116,7 +116,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpPost]
         [Route("recibirACK")]
-        [SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
+        //[SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ActualizarDescargar([FromBody] ActualizarDescargaCommand command)
         {
