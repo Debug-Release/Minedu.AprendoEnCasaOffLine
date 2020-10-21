@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  aprendo-en-casa-offline-contenido:
+    image: aprendo-en-casa-offline-contenido.api:v1
+    build:
+      context: .
+      dockerfile: Minedu.AprendoEnCasaOffLine.Contenido.Api/Dockerfile
+    hostname: aprendo-en-casa-offline-contenido.apiv1
+    container_name: aprendo-en-casa-offline-contenido.apiv1
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_MONGODB: "mongodb://root:root@192.168.100.32:27017/contenidoDB?authSource=admin"
+      ASPNETCORE_CORS: "*"
+      HORA_DESCARGA_INICIO: "02:00:00"
+      HORA_DESCARGA_INTERVALO: "00:30:00"
+      SERVIDOR_INTERVALO: "500"
+      RUTA_ARCHIVOS: "/app/archivos"
+      RUTA_ACK: "/app/ack"
+      #IS4
+      IS4_URL: "https://falabellape-auth.azurewebsites.net"
+      IS4_CLIENT_ID: "download-offline_dev"
+      IS4_CLIENT_SECRET: "download-offline_devsecret"
+      IS4_GRANT_TYPE: "password"
+    networks:
+    - ms
+    ports:
+    - 1903:80
+    volumes:
+    - /c/app/_certificates/:/https/
+    - /c/app/_log/aprendo-en-casa-offline-contenido.api:/app/Log
+    - /c/app/ac/archivos:/app/archivos
+    - /c/app/ac/ack:/app/ack
+    restart: on-failure
+networks:
+    ms:
+      external: true
