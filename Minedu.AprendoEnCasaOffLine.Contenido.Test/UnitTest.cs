@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minedu.AprendoEnCasaOffLine.Contenido.Test.Proxy;
 using System.Linq;
+using System.Threading.Tasks;
 using DTO = Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 
 
@@ -15,20 +16,26 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test
         private DTO.TokenResponse _token = null;
 
         [TestInitialize]
-        public void TestInitialize()
+        public async Task TestInitialize()
         {
             _apiProxy = new ContenidoProxy(urlProxy);
+            var config = new DTO.AccessConfig
+            {
+                userName = "DOWNLOADOFFLINE_DEV",
+                password = "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg==",
+                client_id = "download-offline_dev"
+            };
 
-            _token = _apiProxy.GetToken("DOWNLOADOFFLINE_DEV", "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg==");
+            _token = await _apiProxy.GetToken(config);
             _apiProxy.Token = _token;
         }
 
         [TestMethod]
-        public void obtenerServidores()
+        public async Task obtenerServidores()
         {
 
             //Leyendo         
-            var items = _apiProxy.obtenerServidores().Result;
+            var items = await _apiProxy.obtenerServidores();
 
             Assert.AreEqual(true, items.Any());
 

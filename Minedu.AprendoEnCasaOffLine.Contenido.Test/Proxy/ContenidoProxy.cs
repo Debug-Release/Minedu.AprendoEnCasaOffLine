@@ -21,17 +21,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test.Proxy
             //Validate certificate
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
-        public DTO.TokenResponse GetToken(string userName, string password)
+        public async Task<DTO.TokenResponse> GetToken(DTO.AccessConfig config)
         {
             string authorizationMethod = "Basic";
-            string authorizationToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{userName}:{password}"));
+            string authorizationToken = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{config.userName}:{config.password}"));
 
             var headers = new Dictionary<string, string>()
             {
-                { "client_id","download-offline_dev" }
+                { "client_id",config.client_id }
             };
 
-            var token = this.CallWebApi<DTO.TokenResponse>(HttpMethod.Post, this._url + "/security/token", authorizationMethod: authorizationMethod, authorizationToken: authorizationToken, headers: headers);
+            var token = await this.CallWebApiAsync<DTO.TokenResponse>(HttpMethod.Post, this._url + "/security/token", authorizationMethod: authorizationMethod, authorizationToken: authorizationToken, headers: headers);
             return token;
 
         }
