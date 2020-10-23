@@ -36,9 +36,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test.Proxy
 
         }
 
-        public DTO.Servidor[] obtenerServidores()
+        public async Task<DTO.Servidor[]> obtenerServidores()
         {
-            return this.CallWebApi<DTO.Servidor[]>(HttpMethod.Get, this._url + "/Contenido/obtenerServidores", null,
+            return await this.CallWebApiAsync<DTO.Servidor[]>(HttpMethod.Get, this._url + "/Contenido/obtenerServidores", null,
                 authorizationToken: Token.access_token,
                 authorizationMethod: Token.token_type);
         }

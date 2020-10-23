@@ -19,7 +19,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test
         {
             _apiProxy = new ContenidoProxy(urlProxy);
 
-            _token = _apiProxy.GetToken("INTELOGIS", "Iid97747543B5C138422C33FEF431!");
+            _token = _apiProxy.GetToken("DOWNLOADOFFLINE_DEV", "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg==");
             _apiProxy.Token = _token;
         }
 
@@ -28,10 +28,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test
         {
 
             //Leyendo         
-            var items = _apiProxy.obtenerServidores();
+            var items = _apiProxy.obtenerServidores().Result;
 
             Assert.AreEqual(true, items.Any());
 
-        }        
+        }
     }
 }
