@@ -67,7 +67,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 }
                 catch (Exception ex)
                 {
-
+                    sr.Messages.Add(ex.Message);
                     _logger.LogError(ex, $"Error al escribir el ack {request.nombrearchivo}");
                 }
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     //[ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]
@@ -39,7 +39,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
         public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)
-        {           
+        {
             var r = await _mediator.Send(query);
 
             return Ok(r);
@@ -119,6 +119,25 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         //[SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ActualizarDescargar([FromBody] ActualizarDescargaCommand command)
+        {
+            var r = await _mediator.Send(command);
+
+            return Ok(r);
+        }
+        [HttpPost]
+        [Route("enviarTrazabilidad")]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        public async Task<IActionResult> EnviarTrazabilidad([FromBody] TrazabilidadCommand command)
+        {
+            var r = await _mediator.Send(command);
+
+            return Ok(r);
+        }
+
+        [HttpPost]
+        [Route("enviarContinuidadOperativa")]
+        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        public async Task<IActionResult> EnviarContinuidadOperativa([FromBody] ContinuidadOperativaCommand command)
         {
             var r = await _mediator.Send(command);
 
