@@ -17,6 +17,8 @@ services:
       SERVIDOR_INTERVALO: "500"
       RUTA_ARCHIVOS: "/app/archivos"
       RUTA_ACK: "/app/ack"
+      RUTA_TRAZABILIDAD: "/app/trazabilidad"
+      RUTA_CONTINUIDAD: "/app/continuidad"
       #IS4
       IS4_URL: "https://falabellape-auth.azurewebsites.net"
       IS4_CLIENT_ID: "download-offline_dev"
@@ -28,9 +30,11 @@ services:
     - 1903:80
     volumes:
     - /c/app/_certificates/:/https/
-    - /c/app/_log/aprendo-en-casa-offline-contenido.api:/app/Log
+    - /c/app/ac/_log:/app/Log
     - /c/app/ac/archivos:/app/archivos
     - /c/app/ac/ack:/app/ack
+    - /c/app/ac/trazabilidad:/app/trazabilidad
+    - /c/app/ac/continuidad:/app/continuidad
     restart: on-failure
 networks:
     ms:
