@@ -8,13 +8,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Minedu.AprendoEnCasaOffLine.Contenido.Api.Models;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters;
 using Minedu.IS4.Security.Auth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
@@ -59,11 +63,50 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
-
+            /*IS4
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddIS4Bearer();
+            */            
+
+            #region Configure jwt authentication
+
+            var ts = new TokenSettings();
+            var key = Encoding.ASCII.GetBytes(ts.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        var userName = context.Principal.Identity.Name;
+                        if (!(userName == ts.User))
+                        {
+                            // return unauthorized if user no longer exists
+                            context.Fail("Unauthorized");
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
+
+            #endregion
 
             services.AddMediatR(typeof(Startup));
 
@@ -95,8 +138,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             Directory.SetCurrentDirectory(env.ContentRootPath);
+                        
 
+            //IS4
+            //app.UseAuthentication();
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseStaticFiles();
 
             app.UseSwagger();
