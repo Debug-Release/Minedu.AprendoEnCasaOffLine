@@ -68,7 +68,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             {
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddIS4Bearer();
-            */            
+            */
 
             #region Configure jwt authentication
 
@@ -98,6 +98,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
+                    //RequireExpirationTime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
@@ -138,7 +139,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             Directory.SetCurrentDirectory(env.ContentRootPath);
-                        
+
 
             //IS4
             //app.UseAuthentication();

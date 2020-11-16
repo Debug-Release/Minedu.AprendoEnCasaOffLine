@@ -82,8 +82,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
                 {
                     new Claim(ClaimTypes.Name, ts.User)
                 }),
+               
                 Expires = DateTime.Now.AddDays(expiresDays),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
