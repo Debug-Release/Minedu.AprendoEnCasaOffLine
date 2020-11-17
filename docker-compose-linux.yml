@@ -2,10 +2,11 @@ version: '3.4'
 
 services:
   aprendo-en-casa-offline-contenido:
-    image: aprendo-en-casa-offline-contenido.api
-    build:
-      context: .
-      dockerfile: Minedu.AprendoEnCasaOffLine.Contenido.Api/Dockerfile
+    #image: aprendo-en-casa-offline-contenido.api
+    image: "registry.minedu.gob.pe/ac1.0/aprendo-en-casa-offline-contenido.api:latest"
+    #build:
+    #  context: .
+    #  dockerfile: Minedu.AprendoEnCasaOffLine.Contenido.Api/Dockerfile
     hostname: aprendo-en-casa-offline-contenido.api
     container_name: aprendo-en-casa-offline-contenido.api
     environment:
@@ -19,11 +20,6 @@ services:
       RUTA_ACK: "/app/ack"
       RUTA_TRAZABILIDAD: "/app/trazabilidad"
       RUTA_CONTINUIDAD: "/app/continuidad"
-      #IS4
-      #IS4_URL: "https://falabellape-auth.azurewebsites.net"
-      #IS4_CLIENT_ID: "download-offline_dev"
-      #IS4_CLIENT_SECRET: "download-offline_devsecret"
-      #IS4_GRANT_TYPE: "password"
       #LOCAL TOKEN
       TOKEN_SECRET: "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
       TOKEN_USER: "DOWNLOADOFFLINE_DEV"
@@ -35,12 +31,13 @@ services:
     ports:
     - 1903:80
     volumes:
-    - /c/app/_certificates/:/https/
-    - /c/app/ac/_log:/app/Log
-    - /c/app/ac/archivos:/app/archivos
-    - /c/app/ac/ack:/app/ack
-    - /c/app/ac/trazabilidad:/app/trazabilidad
-    - /c/app/ac/continuidad:/app/continuidad
+    - ../_certificates:/https
+    - ../_log:/app/Log
+    - ../_data/archivos:/app/archivos
+    - ../_data/ack:/app/ack
+    - ../_data/trazabilidad:/app/trazabilidad
+    - ../_data/continuidad:/app/continuidad
+
     restart: on-failure
 networks:
     ms:
