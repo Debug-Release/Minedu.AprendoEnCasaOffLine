@@ -4,4 +4,6 @@ docker system prune --force
 docker-compose build
 docker network create ms
 docker-compose up -d
+docker save --output aprendo-en-casa-offline-contenido.api.tar aprendo-en-casa-offline-contenido.api
 pause
+

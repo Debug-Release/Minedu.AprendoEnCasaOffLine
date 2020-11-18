@@ -1,9 +1,14 @@
 version: '3.4'
+#Windows:
+#docker save --output aprendo-en-casa-offline-contenido.api.tar aprendo-en-casa-offline-contenido.api
+
+#Linux:
+#docker load --input aprendo-en-casa-offline-contenido.api.tar
 
 services:
   aprendo-en-casa-offline-contenido:
-    #image: aprendo-en-casa-offline-contenido.api
-    image: "registry.minedu.gob.pe/ac1.0/aprendo-en-casa-offline-contenido.api:latest"
+    image: aprendo-en-casa-offline-contenido.api
+    #image: "registry.minedu.gob.pe/ac1.0/aprendo-en-casa-offline-contenido.api:latest"
     #build:
     #  context: .
     #  dockerfile: Minedu.AprendoEnCasaOffLine.Contenido.Api/Dockerfile

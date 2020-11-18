@@ -87,6 +87,21 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 return await Task.FromResult(sr);
             }
 
+            var validDescargado = _descargaRepository.FirstOrDefault(x =>
+                        x.macServidor.ToUpper() == request.macServidor.ToUpper() &&
+                        x.esActivo == true &&
+                        x.esEliminado == false &&
+                        (x.estado == EstadoDescarga.Descargado) &&
+                        x.contenido.id == contenido.id
+                        );
+            if (validDescargado != null)
+            {
+                sr.Messages.Add($"Ya se realizó una descarga para el servidor [{request.macServidor}] con el contenido [{contenido.nombre}]");
+                sr.Success = false;
+                //Return 3
+                return await Task.FromResult(sr);
+            }
+
             var validDescarga = _descargaRepository.FirstOrDefault(x =>
                         x.macServidor.ToUpper() == request.macServidor.ToUpper() &&
                         x.esActivo == true &&
