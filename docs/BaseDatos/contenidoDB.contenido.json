@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5f8312117057160bec17bc97"},"_fechaCreacion":{"$date":"2020-10-11T09:09:21.238Z"},"_esActivo":true,"_esEliminado":false,"nombre":"Contenido 21","descripcion":"Contenido 21 actualizado","archivo":"contenido21.tar.gz","pesoMb":"600Mb","estado":"Cargado"}

@@ -1,0 +1,1 @@
+{"_id":{"$oid":"5f8f1222595abb0001bb2371"},"_fechaCreacion":{"$date":"2020-10-20T16:36:50.877Z"},"_esActivo":true,"_esEliminado":false,"mac":"macServidor1","nombre":"Servidor1","fqdn":"servidor1.minedu.gob.pe"}
