@@ -94,7 +94,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             tr.access_token = tokenString;
             var timeSpan = tokenDescriptor.Expires.Value - DateTime.Now;
 
-            tr.expires_in = timeSpan.Minutes;
+            tr.expires_in = Convert.ToInt32(timeSpan.TotalDays);
 
             return tr;
         }
