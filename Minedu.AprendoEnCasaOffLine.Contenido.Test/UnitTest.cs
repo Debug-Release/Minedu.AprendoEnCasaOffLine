@@ -10,7 +10,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test
     [TestClass]
     public class UnitTest
     {
-        private const string urlProxy = "https://localhost:44388";
+        private const string urlProxy = "http://181.176.211.159:1903";
 
         private ContenidoProxy _apiProxy;
         private DTO.TokenResponse _token = null;
@@ -39,6 +39,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test
 
             Assert.AreEqual(true, items.Any());
 
-        }
+        }        
+    }
+
+    public class ProgramacionDescargaQuery 
+    {
+        public string macServidor { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     RuleFor(x => x.mac).NotEmpty().WithMessage("La dirección mac del servidor es requerida");
                     When(x => !string.IsNullOrEmpty(x.mac), () =>
                     {
-                        RuleFor(x => x.mac).MaximumLength(30).WithMessage("La dirección mac del servidor no puede tener más de 30 caracteres.");
+                        RuleFor(x => x.mac).MaximumLength(100).WithMessage("La dirección mac del servidor no puede tener más de 100 caracteres.");
                     });
 
                     //fqdn

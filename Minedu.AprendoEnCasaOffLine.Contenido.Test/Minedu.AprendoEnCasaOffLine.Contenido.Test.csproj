@@ -59,11 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="Proxy\ContenidoProxy.cs" />
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AccessConfig.cs" />
+    <Compile Include="ViewModel\Aplicacion.cs" />
     <Compile Include="ViewModel\Base.cs" />
+    <Compile Include="ViewModel\Contenido.cs" />
+    <Compile Include="ViewModel\Descarga.cs" />
+    <Compile Include="ViewModel\ProgramacionDescarga.cs" />
     <Compile Include="ViewModel\Servidor.cs" />
     <Compile Include="ViewModel\TokenResponse.cs" />
   </ItemGroup>

@@ -31,7 +31,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test.Proxy
                 { "client_id",config.client_id }
             };
 
-            var token = await this.CallWebApiAsync<DTO.TokenResponse>(HttpMethod.Post, this._url + "/security/token", authorizationMethod: authorizationMethod, authorizationToken: authorizationToken, headers: headers);
+            var token = await this.CallWebApiAsync<DTO.TokenResponse>(HttpMethod.Post, this._url + "/account/token", authorizationMethod: authorizationMethod, authorizationToken: authorizationToken, headers: headers);
             return token;
 
         }
@@ -42,8 +42,6 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Test.Proxy
                 authorizationToken: Token.access_token,
                 authorizationMethod: Token.token_type);
         }
-
-
 
     }
 }
