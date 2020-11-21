@@ -25,18 +25,18 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 Success = true,
             };
 
-            var q = _contenidoRepository.FirstOrDefault(x => x.nombre == request.nombre);
+            var q = _contenidoRepository.FirstOrDefault(x => x.nombre == request.archivo);
             if (q != null)
             {
                 cr.Success = false;
-                cr.Messages.Add("Ya existe un contenido registrado con el nombre [" + request.nombre + "]");
+                cr.Messages.Add("Ya existe un archivo registrado con el nombre [" + request.archivo + "]");
             }
             else
-            {               
+            {
                 var r = await _contenidoRepository.InsertOneAsync(new Model.Contenido
                 {
-                    nombre = request.nombre,
-                    descripcion = request.descripcion,
+                    nombre = null,
+                    descripcion = null,
                     archivo = request.archivo,
                     pesoMb = request.pesoMb,
                     estado = EstadoContenido.Cargado, //Cargado = cuando el archivo ya esta cargado en directorio de descargas

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     //[ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]
@@ -26,6 +26,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpGet]
         [Route("obtenerServidores")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(Servidor[]))]
         public async Task<IActionResult> ObtenerServidores()
         {
@@ -36,6 +37,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpGet]
         [Route("obtenerContenido")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
         public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)
@@ -99,6 +101,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpGet("descargar")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
         public async Task<ActionResult> DownloadAsync(string id)
         {

@@ -28,7 +28,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             {
                 StatusCode = 200,
                 Success = true,
-            };                      
+            };
 
             var filters = new List<Expression<Func<Model.Servidor, bool>>> { x => x.esEliminado == false && x.esActivo == true };
             var macs = request.mac.ToUpper().Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -67,7 +67,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 */
                 var r = await _servidorRepository.InsertOneAsync(new Model.Servidor
                 {
-                    ip = request.ip,
+                    ip = null,//request.ip,
                     mac = request.mac,
                     mac1 = macs,
                     nombre = request.nombre,

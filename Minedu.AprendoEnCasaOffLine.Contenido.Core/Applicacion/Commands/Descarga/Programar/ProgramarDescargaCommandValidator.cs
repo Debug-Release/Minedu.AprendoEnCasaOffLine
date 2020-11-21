@@ -16,7 +16,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     //    RuleFor(x => x.idContenido).Matches(@"[0-9a-fA-F]{24}").WithMessage("El formato del id del contenido no es válido.");
                     //});
 
-                    //ipServidor
+                    //Mac Servidor
                     RuleFor(x => x.macServidor).NotEmpty().WithMessage("La dirección mac del servidor es requerida");
 
                     When(x => !string.IsNullOrEmpty(x.macServidor), () =>

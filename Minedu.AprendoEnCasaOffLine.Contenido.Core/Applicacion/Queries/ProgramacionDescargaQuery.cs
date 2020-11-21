@@ -48,9 +48,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                         contenido = new VM.Contenido
                         {
                             id = q.contenido.id.ToString(),
-                            nombre = q.contenido.nombre,
-                            descripcion = q.contenido.descripcion,
-                            archivo = q.contenido.archivo.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Last(),
+                            //nombre = q.contenido.nombre,
+                            //descripcion = q.contenido.descripcion,
+                            //archivo = q.contenido.archivo.Split(delimiters, StringSplitOptions.RemoveEmptyEntries).Last(),
+                            archivo = q.contenido.archivo,
                             pesoMb = q.contenido.pesoMb,
                             fechaCreacion = q.contenido.fechaCreacion,
                             estado = EstadoContenido.Cargado,
