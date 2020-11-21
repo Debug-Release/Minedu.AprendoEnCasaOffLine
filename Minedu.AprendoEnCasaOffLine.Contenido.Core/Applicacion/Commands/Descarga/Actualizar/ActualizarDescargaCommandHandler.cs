@@ -52,7 +52,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 await _descargaRepository.UpdateOneAsync(q.id, q);
 
                 sr.Success = true;
-                sr.Messages.Add($"La descarga del contenido [{q.contenido.nombre}] se actualizó correctamente");
+                sr.Messages.Add($"La descarga del archivo [{q.contenido.archivo}] se actualizó correctamente");
 
                 //Persiste ack json
                 try

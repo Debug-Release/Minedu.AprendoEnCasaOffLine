@@ -96,7 +96,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                         );
             if (validDescargado != null)
             {
-                sr.Messages.Add($"Ya se realizó una descarga para el servidor [{request.macServidor}] con el contenido [{contenido.nombre}]");
+                sr.Messages.Add($"Ya se realizó una descarga para el servidor [{request.macServidor}] con el archivo [{contenido.archivo}]");
                 sr.Success = false;
                 //Return 3
                 return await Task.FromResult(sr);
@@ -112,8 +112,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
 
             if (validDescarga != null)
             {
-                sr.Messages.Add($"Hay una descarga programada con el contenido [{contenido.nombre}]");
+                sr.Messages.Add($"Hay una descarga programada con el contenido [{contenido.archivo}]");
                 sr.Success = false;
+                //sr.StatusCode = 100;
                 //Return 3
                 return await Task.FromResult(sr);
             }

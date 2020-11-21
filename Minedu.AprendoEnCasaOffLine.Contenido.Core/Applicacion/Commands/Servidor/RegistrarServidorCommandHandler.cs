@@ -15,11 +15,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     {
         private readonly IBaseRepository<Model.Servidor> _servidorRepository;
         private readonly ICollectionContext<Model.Servidor> _servidorCollection;
+        private readonly IMediator _mediator;
 
-        public RegistrarServidorCommandHandler(IBaseRepository<Model.Servidor> servidorRepository, ICollectionContext<Model.Servidor> servidorCollection)
+        public RegistrarServidorCommandHandler(IBaseRepository<Model.Servidor> servidorRepository, ICollectionContext<Model.Servidor> servidorCollection, IMediator mediator)
         {
             _servidorRepository = servidorRepository;
             _servidorCollection = servidorCollection;
+            _mediator = mediator;
         }
 
         public async Task<StatusResponse> Handle(RegistrarServidorCommand request, CancellationToken cancellationToken)
@@ -74,10 +76,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     //fqdn = request.fqdn,
                     esActivo = true,
                     fechaCreacion = DateTime.Now
-                }); ;
+                });
 
                 cr.Data = r.id;
                 cr.Messages.Add($"El servidor [{request.nombre}] se registro correctamente");
+
+                //Llamar a registrar programacion de descarga
+                /*
+                var ok = await _mediator.Send(new ProgramarDescargaCommand { macServidor = "mac1Server20" });
+                if (ok.Success)
+                {
+
+                }
+                */
             }
 
             return await Task.FromResult(cr);
