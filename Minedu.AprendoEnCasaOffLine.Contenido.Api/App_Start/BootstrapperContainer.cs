@@ -16,6 +16,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             //MediatR
             ContextDbNoSqlModule.Configuration = Configuration;
             builder.RegisterModule<MediatRModule>();
+
+            //Worker
+            ContextDbNoSqlModule.Configuration = Configuration;
+            builder.RegisterModule<WorkerModule>();
         }
     }
 }

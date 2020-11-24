@@ -52,6 +52,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Minedu.AprendoEnCasaOffLine.Contenido.Core\Minedu.AprendoEnCasaOffLine.Contenido.Core.csproj" />
+		<ProjectReference Include="..\Minedu.AprendoEnCasaOffLine.Contenido.Worker\Minedu.AprendoEnCasaOffLine.Contenido.Worker.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minedu.AprendoEnCasaOffLine.Contenido.Api.Models;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters;
+using Minedu.AprendoEnCasaOffLine.Contenido.Worker;
 using Minedu.IS4.Security.Auth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -109,6 +110,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
             #endregion
 
+            /*
+            #region WorkerService
+
+            services.AddHostedService<ProgramacionService>();
+
+            #endregion
+            */
             services.AddMediatR(typeof(Startup));
 
             services.AddSwaggerGen(c =>
