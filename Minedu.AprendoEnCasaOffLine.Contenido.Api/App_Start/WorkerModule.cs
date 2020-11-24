@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Minedu.AprendoEnCasaOffLine.Contenido.Worker;
+using System;
+using System.Reflection;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
@@ -11,9 +12,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProgramacionService>()
-                   .As<IHostedService>()
-                   .InstancePerDependency();
+            builder
+               .RegisterAssemblyTypes(Assembly.Load(new AssemblyName("Minedu.AprendoEnCasaOffLine.Contenido.Worker")))
+               .Where(t => t.Name.EndsWith("Service", StringComparison.Ordinal) && t.GetTypeInfo().IsClass)
+               .As<IHostedService>()
+               .InstancePerDependency();
+
         }
     }
 }
