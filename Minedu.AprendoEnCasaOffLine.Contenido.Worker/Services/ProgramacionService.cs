@@ -18,6 +18,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Worker
         }
         protected override void InitVariables()
         {
+            
             var programacionTodo = Functions.GetEnvironmentVariable("PROGRAMACION_TODO");
 
             var programacion = TimeSpan.Parse(programacionTodo);
