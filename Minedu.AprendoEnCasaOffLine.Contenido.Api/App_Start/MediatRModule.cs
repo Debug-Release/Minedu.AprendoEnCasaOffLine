@@ -8,8 +8,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public class MediatRModule : Autofac.Module
     {
-        public static IConfiguration Configuration;
+        public IConfiguration Configuration;
 
+        public MediatRModule(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         protected override void Load(ContainerBuilder builder)
         {
             builder

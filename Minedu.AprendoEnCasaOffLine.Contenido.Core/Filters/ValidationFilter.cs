@@ -41,7 +41,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters
                 */
                 var sr = new StatusResponse
                 {
-                    StatusCode = StatusCodes.Status400BadRequest,
+                    StatusCode = HttpStatusCodes.Status400BadRequest,
                     Success = false
                 };
                 var lst = new List<string>();

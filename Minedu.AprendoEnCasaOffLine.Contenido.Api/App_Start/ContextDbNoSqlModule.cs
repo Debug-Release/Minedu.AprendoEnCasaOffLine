@@ -11,8 +11,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public class ContextDbNoSqlModule : Autofac.Module
     {
-        public static IConfiguration Configuration;
-
+        public IConfiguration Configuration;
+        public ContextDbNoSqlModule(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
         protected override void Load(ContainerBuilder builder)
         {
             string cs = Functions.GetEnvironmentVariable("ASPNETCORE_MONGODB");
@@ -25,7 +28,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             ms.WaitQueueTimeout = new TimeSpan(0, 5, 0);
             ms.WaitQueueSize = 60000;
             */
-            
+
             //builder.RegisterType<DataContext>().Named<IDataContext>("contextNoSql").WithParameter("settings", settings).InstancePerLifetimeScope();
             builder.RegisterType<DataContext>().Named<IDataContext>("contextNoSql").WithParameter("mongoUrl", mongoUrl).InstancePerLifetimeScope();
             /*
@@ -62,12 +65,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
                 .InstancePerDependency();
 
-            
+
             builder.RegisterGeneric(typeof(CustomBaseRepository<>))
                 .As(typeof(ICustomBaseRepository<>))
                 .WithParameter((c, p) => true, (c, p) => p.ResolveNamed<IDataContext>("contextNoSql"))
                 .InstancePerDependency();
-            
+
 
         }
 

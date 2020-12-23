@@ -12,7 +12,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Minedu.AprendoEnCasaOffLine.Contenido.Api.Models;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Filters;
-using Minedu.AprendoEnCasaOffLine.Contenido.Worker;
 using Minedu.IS4.Security.Auth;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -139,9 +138,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            //Register Types
-            BootstrapperContainer.Configuration = Configuration;
-            BootstrapperContainer.Register(builder);
+            //Register Types            
+            BootstrapperContainer.Register(builder, Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)

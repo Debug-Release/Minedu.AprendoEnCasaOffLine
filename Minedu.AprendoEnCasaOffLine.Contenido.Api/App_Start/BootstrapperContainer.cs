@@ -5,21 +5,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public static class BootstrapperContainer
     {
-        public static IConfiguration Configuration;
 
-        public static void Register(ContainerBuilder builder)
+        public static void Register(ContainerBuilder builder, IConfiguration configuration)
         {
-            //Add Context No SQL
-            ContextDbNoSqlModule.Configuration = Configuration;
-            builder.RegisterModule<ContextDbNoSqlModule>();
+            //Add Context No SQL            
+            builder.RegisterModule(new ContextDbNoSqlModule(configuration));
 
-            //MediatR
-            ContextDbNoSqlModule.Configuration = Configuration;
-            builder.RegisterModule<MediatRModule>();
+            //MediatR            
+            builder.RegisterModule(new MediatRModule(configuration));
 
-            //Worker
-            ContextDbNoSqlModule.Configuration = Configuration;
-            builder.RegisterModule<WorkerModule>();
+            //Worker            
+            builder.RegisterModule(new WorkerModule(configuration));
         }
     }
 }

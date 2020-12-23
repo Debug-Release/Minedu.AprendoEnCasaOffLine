@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
-    [Authorize]
+#if DEBUG
+    
+#else
+    //[Authorize]
+#endif
+
     //[ApiExplorerSettings(IgnoreApi = true)]
     [SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]
@@ -26,7 +31,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpGet]
         [Route("obtenerServidores")]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(Servidor[]))]
         public async Task<IActionResult> ObtenerServidores()
         {
@@ -58,7 +63,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("registrarServidor")]
-        //[SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
+        [SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
         [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> RegistrarServidor([FromBody] RegistrarServidorCommand command)
         {
