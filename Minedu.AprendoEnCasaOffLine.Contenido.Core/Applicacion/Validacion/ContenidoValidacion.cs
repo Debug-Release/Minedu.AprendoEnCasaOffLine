@@ -138,15 +138,5 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Aplicacion
         //{
         //    Msg.Add(courier.nombre.ToUpper() + ":" + msg);
         //}
-    }
-    public class ValidacionCarga
-    {
-        public ValidacionCarga()
-        {
-            Msg = new List<string>();
-            Folios = new List<string>();
-        }
-        public List<string> Msg { get; set; }
-        public List<string> Folios { get; set; }
-    }
+    }    
 }

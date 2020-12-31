@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands;
 using Release.Helper;
 using Release.Helper.Worker;
 using System;

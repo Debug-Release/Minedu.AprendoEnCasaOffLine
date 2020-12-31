@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands;
 using Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
 #if DEBUG
-    
+
 #else
     //[Authorize]
 #endif
@@ -32,7 +31,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpGet]
         [Route("obtenerServidores")]
         //[ApiExplorerSettings(IgnoreApi = true)]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(Servidor[]))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(Servidor[]))]
         public async Task<IActionResult> ObtenerServidores()
         {
             var query = new ServidorQuery();
@@ -44,7 +43,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [Route("obtenerContenido")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
         public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)
         {
             var r = await _mediator.Send(query);
@@ -53,7 +52,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpGet]
         [Route("obtenerProgramacion")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public async Task<IActionResult> ObtenerProgramacion(ProgramacionDescargaQuery query)
         {
             var r = await _mediator.Send(query);
@@ -64,7 +63,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("registrarServidor")]
         [SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> RegistrarServidor([FromBody] RegistrarServidorCommand command)
         {
             var r = await _mediator.Send(command);
@@ -75,7 +74,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("agregarContenido")]
         //[SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> AgregarContenido([FromBody] RegistrarContenidoCommand command)
         {
             var r = await _mediator.Send(command);
@@ -86,7 +85,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("programarDescarga")]
         //[SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarDescarga([FromBody] ProgramarDescargaCommand command)
         {
             var r = await _mediator.Send(command);
@@ -97,7 +96,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [Route("programarTodoDescarga")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ProgramarTodoDescarga([FromBody] ProgramarTodoDescargaCommand command)
         {
             var r = await _mediator.Send(command);
@@ -125,7 +124,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpPost]
         [Route("recibirACK")]
         //[SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> ActualizarDescargar([FromBody] ActualizarDescargaCommand command)
         {
             var r = await _mediator.Send(command);
@@ -134,7 +133,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpPost]
         [Route("enviarTrazabilidad")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarTrazabilidad([FromBody] TrazabilidadCommand command)
         {
             var r = await _mediator.Send(command);
@@ -144,7 +143,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
         [HttpPost]
         [Route("enviarContinuidadOperativa")]
-        [SwaggerResponse(statusCode: (int)System.Net.HttpStatusCode.OK, type: typeof(StatusResponse))]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarContinuidadOperativa([FromBody] ContinuidadOperativaCommand command)
         {
             var r = await _mediator.Send(command);
