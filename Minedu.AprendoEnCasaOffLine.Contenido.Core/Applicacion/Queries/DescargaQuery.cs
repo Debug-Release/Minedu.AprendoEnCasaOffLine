@@ -19,13 +19,16 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
         public class DescargaQueryHandler : IRequestHandler<DescargaQuery, FileResponse>
         {
             private readonly ILogger<DescargaQueryHandler> _logger;
+            private readonly AppSettings _appSettings;
+
             private readonly IBaseRepository<Model.Descarga> _descargaRepository;
             public DescargaQueryHandler(
                 IBaseRepository<Model.Descarga> descargaRepository,
-                ILogger<DescargaQueryHandler> logger)
+                ILogger<DescargaQueryHandler> logger, AppSettings appSettings)
             {
                 _descargaRepository = descargaRepository;
                 _logger = logger;
+                _appSettings = appSettings;
             }
             public async Task<FileResponse> Handle(DescargaQuery request, CancellationToken cancellationToken)
             {
@@ -48,7 +51,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                     {
                         //Leer Archivo de disco
 
-                        string pathArchivos = Functions.GetEnvironmentVariable("RUTA_ARCHIVOS");
+                        string pathArchivos = _appSettings.Settings.RUTA_ARCHIVOS;
                         pathArchivos = Path.Combine(pathArchivos, q.contenido.archivo);
 
                         if (File.Exists(pathArchivos))

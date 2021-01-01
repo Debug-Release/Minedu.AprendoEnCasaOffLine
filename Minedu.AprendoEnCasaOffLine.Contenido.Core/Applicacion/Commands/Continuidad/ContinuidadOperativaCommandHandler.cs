@@ -10,10 +10,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     public class ContinuidadOperativaCommandHandler : IRequestHandler<ContinuidadOperativaCommand, StatusResponse>
     {
         private readonly ILogger<ContinuidadOperativaCommandHandler> _logger;
+        private readonly AppSettings _appSettings;
 
-        public ContinuidadOperativaCommandHandler(ILogger<ContinuidadOperativaCommandHandler> logger)
+        public ContinuidadOperativaCommandHandler(ILogger<ContinuidadOperativaCommandHandler> logger, AppSettings appSettings)
         {
             _logger = logger;
+            _appSettings = appSettings;
         }
         public async Task<StatusResponse> Handle(ContinuidadOperativaCommand request, CancellationToken cancellationToken)
         {
@@ -31,7 +33,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             //Persiste json
             try
             {
-                var ruta = Functions.GetEnvironmentVariable("RUTA_CONTINUIDAD");
+                var ruta = _appSettings.Settings.RUTA_CONTINUIDAD;
                 string name = $"continuidad-operativa-{DateTime.Now.ToString("yyyy-MM-dd_hhmmss")}.json";
 
                 string pathJson = System.IO.Path.Combine(ruta, name);

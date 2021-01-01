@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
-using Release.Helper;
 using Release.MongoDB.Repository;
 using Release.MongoDB.Repository.Base;
 using System;
@@ -11,14 +10,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public class ContextDbNoSqlModule : Autofac.Module
     {
-        public IConfiguration Configuration;
+        private IConfiguration _configuration;
         public ContextDbNoSqlModule(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
         protected override void Load(ContainerBuilder builder)
         {
-            string cs = Functions.GetEnvironmentVariable("ASPNETCORE_MONGODB");
+            base.Load(builder);
+
+            string cs = _configuration.GetSection("Settings:CADENA_CONEXION").Value;
+
             var mongoUrl = new MongoUrl(cs);
             /*
             var ms = MongoClientSettings.FromConnectionString(cs);

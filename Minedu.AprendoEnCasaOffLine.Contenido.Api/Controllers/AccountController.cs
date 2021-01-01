@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Minedu.AprendoEnCasaOffLine.Contenido.Api.Models;
+using Minedu.AprendoEnCasaOffLine.Contenido.Core;
 using Minedu.IS4.Security.Auth;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,14 +14,18 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-
+        private readonly AppSettings _appSettings;
+        public AccountController(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
         [HttpPost]
         [Route("token")]
         [AllowAnonymous]
         public TokenResponse Token()
         {
             var tr = new TokenResponse();
-            var ts = new TokenSettings();
+            var ts = _appSettings.Token;
 
             //Encoding.ASCII.GetBytes("username:password1234");
 
@@ -43,7 +47,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             {
 
                 string client_id = Request.Headers["client_id"];
-                if (string.IsNullOrWhiteSpace(client_id) || (ts.ClientId.ToUpper() != client_id.ToUpper()))
+                if (string.IsNullOrWhiteSpace(client_id) || (ts.TOKEN_CLIENT_ID.ToUpper() != client_id.ToUpper()))
                 {
                     tr.error = "validation";
                     tr.error_description = "client_id is not valid";
@@ -65,7 +69,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             var password = credentials[1];
 
             //validate user and password
-            if (!(ts.User == username && ts.Password == password))
+            if (!(ts.TOKEN_USER == username && ts.TOKEN_PASSWORD == password))
             {
                 tr.error = "validation";
                 tr.error_description = "The username or password is incorrect";
@@ -73,19 +77,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             }
 
             //Prepare token
-            int expiresDays = int.Parse(ts.Expires);
+            int expiresDays = ts.TOKEN_EXPIRES_DAYS;
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(ts.Secret);
+            var key = Encoding.ASCII.GetBytes(ts.TOKEN_SECRET);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, ts.User)
+                    new Claim(ClaimTypes.Name, ts.TOKEN_USER)
                 }),
-               
+
                 Expires = DateTime.Now.AddDays(expiresDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                
+
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);

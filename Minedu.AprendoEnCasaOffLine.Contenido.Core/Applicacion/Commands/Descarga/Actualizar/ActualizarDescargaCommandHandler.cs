@@ -14,13 +14,15 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     {
         private readonly ILogger<ActualizarDescargaCommandHandler> _logger;
         private readonly IBaseRepository<Model.Descarga> _descargaRepository;
+        private readonly AppSettings _appSettings;
 
         public ActualizarDescargaCommandHandler(
             IBaseRepository<Model.Descarga> descargaRepository,
-            ILogger<ActualizarDescargaCommandHandler> logger)
+            ILogger<ActualizarDescargaCommandHandler> logger, AppSettings appSettings)
         {
             _descargaRepository = descargaRepository;
             _logger = logger;
+            _appSettings = appSettings;
         }
         public async Task<StatusResponse> Handle(ActualizarDescargaCommand request, CancellationToken cancellationToken)
         {
@@ -57,7 +59,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                 //Persiste ack json
                 try
                 {
-                    var rutaACK = Functions.GetEnvironmentVariable("RUTA_ACK");
+                    var rutaACK = _appSettings.Settings.RUTA_ACK;
                     string ackname = $"aeco_paq_ack-{request.fecha.ToString("yyyy-MM-dd_hhmmss")}.json";
                     string pathJson = System.IO.Path.Combine(rutaACK, ackname);
                     string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(request);

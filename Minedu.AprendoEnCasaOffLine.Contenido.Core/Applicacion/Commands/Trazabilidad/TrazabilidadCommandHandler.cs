@@ -10,10 +10,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     public class TrazabilidadCommandHandler : IRequestHandler<TrazabilidadCommand, StatusResponse>
     {
         private readonly ILogger<TrazabilidadCommandHandler> _logger;
+        private readonly AppSettings _appSettings;
 
-        public TrazabilidadCommandHandler(ILogger<TrazabilidadCommandHandler> logger)
+        public TrazabilidadCommandHandler(ILogger<TrazabilidadCommandHandler> logger, AppSettings appSettings)
         {
             _logger = logger;
+            _appSettings = appSettings;
         }
         public async Task<StatusResponse> Handle(TrazabilidadCommand request, CancellationToken cancellationToken)
         {
@@ -26,7 +28,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             //Persiste
             try
             {
-                var ruta = Functions.GetEnvironmentVariable("RUTA_TRAZABILIDAD");
+                var ruta = _appSettings.Settings.RUTA_TRAZABILIDAD;
                 string name = $"trazabilidad-{DateTime.Now.ToString("yyyy-MM-dd_hhmmss")}.tar";
                 string pathTar = System.IO.Path.Combine(ruta, name);
                 await System.IO.File.WriteAllBytesAsync(pathTar, request.archivo);

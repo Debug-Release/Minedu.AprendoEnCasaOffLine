@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using MongoDB.Bson;
 using MongoDB.Driver;
 using Release.Helper;
 using Release.MongoDB.Repository;
@@ -15,7 +14,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     public class ProgramarDescargaCommandHandler : IRequestHandler<ProgramarDescargaCommand, StatusResponse>
     {
         private readonly ILogger<ProgramarDescargaCommandHandler> _logger;
-
+        private readonly AppSettings _appSettings;
         private readonly IBaseRepository<Model.Descarga> _descargaRepository;
         private readonly IBaseRepository<Model.Servidor> _servidorRepository;
         private readonly ICollectionContext<Model.Contenido> _contenidoCollection;
@@ -24,12 +23,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             IBaseRepository<Model.Descarga> descargaRepository,
             ICollectionContext<Model.Contenido> contenidoCollection,
             IBaseRepository<Model.Servidor> servidorRepository,
-            ILogger<ProgramarDescargaCommandHandler> logger)
+            ILogger<ProgramarDescargaCommandHandler> logger, AppSettings appSettings)
         {
             _descargaRepository = descargaRepository;
             _contenidoCollection = contenidoCollection;
             _servidorRepository = servidorRepository;
             _logger = logger;
+            _appSettings = appSettings;
         }
 
         public async Task<StatusResponse> Handle(ProgramarDescargaCommand request, CancellationToken cancellationToken)
@@ -41,12 +41,12 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
             };
 
             Model.Contenido contenido = null;
-            var hdinicio = Functions.GetEnvironmentVariable("HORA_DESCARGA_INICIO");
-            var hdintervalo = Functions.GetEnvironmentVariable("HORA_DESCARGA_INTERVALO");
-            int sintervalo = int.Parse(Functions.GetEnvironmentVariable("SERVIDOR_INTERVALO"));
+            var hdinicio = _appSettings.Settings.HORA_DESCARGA_INICIO;
+            var hdintervalo = _appSettings.Settings.HORA_DESCARGA_INTERVALO;
+            int sintervalo = _appSettings.Settings.SERVIDOR_INTERVALO;
 
             DateTime dHoraInicio = DateTime.ParseExact(hdinicio, "hh:mm:ss", null);
-            TimeSpan tsHoraIntervalo = TimeSpan.Parse(hdintervalo);
+            TimeSpan tsHoraIntervalo = hdintervalo;
 
             var valid = Validacion(request);
             if (valid.Any())

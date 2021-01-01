@@ -17,7 +17,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 #endif
 
     //[ApiExplorerSettings(IgnoreApi = true)]
-    [SwaggerTag("Operaciones para gestionar descargas de contenido")]
+    //[SwaggerTag("Operaciones para gestionar descargas de contenido")]
     [Route("[controller]")]
     public class ContenidoController : ControllerBase
     {
@@ -41,7 +41,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
         [HttpGet]
         [Route("obtenerContenido")]
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(PagedResponse<Core.ViewModel.Contenido>))]
         public async Task<IActionResult> ObtenerContenido(ContenidoQuery query)

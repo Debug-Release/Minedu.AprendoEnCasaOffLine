@@ -8,14 +8,16 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public class MediatRModule : Autofac.Module
     {
-        public IConfiguration Configuration;
+        private IConfiguration _configuration;
 
         public MediatRModule(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
         protected override void Load(ContainerBuilder builder)
         {
+            base.Load(builder);
+
             builder
                 .RegisterAssemblyTypes(Assembly.Load(new AssemblyName("Minedu.AprendoEnCasaOffLine.Contenido.Core")))
                 .Where(t => t.IsClosedTypeOf(typeof(IRequest<>)))

@@ -30,10 +30,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Queries
                     id = v.id.ToString(),
                     fechaCreacion = v.fechaCreacion,
                     esActivo = v.esActivo,
-                    ip = v.ip,
+                    //ip = v.ip,
                     mac = v.mac,
                     nombre = v.nombre,
-                    fqdn = v.fqdn
+                    //fqdn = v.fqdn
                 }).ToList();
                 return items;
             }
