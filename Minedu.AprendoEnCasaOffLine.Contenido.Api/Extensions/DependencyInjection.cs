@@ -73,8 +73,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
             #endregion
             */
-
-            services.AddMediatR(typeof(Startup));
+            //services.AddMediatR(typeof(Startup));
 
             #region Swagger
 

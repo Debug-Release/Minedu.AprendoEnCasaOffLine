@@ -14,6 +14,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             //MediatR            
             builder.RegisterModule(new MediatRModule(configuration));
 
+            //Fluent 
+            builder.RegisterModule(new FluentModule(configuration));
+
             //Worker            
             builder.RegisterModule(new WorkerModule(configuration));
         }

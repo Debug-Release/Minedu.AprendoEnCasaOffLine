@@ -8,11 +8,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
     public class WorkerModule : Autofac.Module
     {
-        public IConfiguration Configuration;
+        public IConfiguration _configuration;
 
         public WorkerModule(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
         protected override void Load(ContainerBuilder builder)
         {
