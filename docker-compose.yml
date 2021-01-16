@@ -4,32 +4,28 @@ services:
   aprendo-en-casa-offline-contenido:
     image: aprendo-en-casa-offline-contenido.api
     build:
-      context: .
-      dockerfile: Minedu.AprendoEnCasaOffLine.Contenido.Api/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     hostname: aprendo-en-casa-offline-contenido.api
     container_name: aprendo-en-casa-offline-contenido.api
     environment:
-      ASPNETCORE_ENVIRONMENT: Production
-      ASPNETCORE_MONGODB: "mongodb://root:root@192.168.100.32:27017/contenidoDB?authSource=admin"
-      ASPNETCORE_CORS: "*"
-      HORA_DESCARGA_INICIO: "02:00:00"
-      HORA_DESCARGA_INTERVALO: "00:30:00"
-      SERVIDOR_INTERVALO: "500"
-      RUTA_ARCHIVOS: "/app/archivos"
-      RUTA_ACK: "/app/ack"
-      RUTA_TRAZABILIDAD: "/app/trazabilidad"
-      RUTA_CONTINUIDAD: "/app/continuidad"
-      #IS4
-      #IS4_URL: "https://falabellape-auth.azurewebsites.net"
-      #IS4_CLIENT_ID: "download-offline_dev"
-      #IS4_CLIENT_SECRET: "download-offline_devsecret"
-      #IS4_GRANT_TYPE: "password"
-      #LOCAL TOKEN
-      TOKEN_SECRET: "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
-      TOKEN_USER: "DOWNLOADOFFLINE_DEV"
-      TOKEN_PASSWORD: "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg=="
-      TOKEN_CLIENT_ID: "download-offline_dev"
-      TOKEN_EXPIRES_DAYS: "7"
+      "ASPNETCORE_ENVIRONMENT": Production
+      "ASPNETCORE_CORS": "*"
+      "Settings__CADENA_CONEXION": "mongodb://admin:admin@181.176.211.159:27017/contenidoDB?authSource=admin"
+      "Settings__HORA_DESCARGA_INICIO": "02:00:00"
+      "Settings__HORA_DESCARGA_INTERVALO": "00:30:00"
+      "Settings__SERVIDOR_INTERVALO": 5
+      "Settings__RUTA_ARCHIVOS": "c:/app/archivos"
+      "Settings__RUTA_ACK": "c:/app/ack"
+      "Settings__RUTA_TRAZABILIDAD": "c:/app/trazabilidad"
+      "Settings__RUTA_CONTINUIDAD": "c:/app/continuidad"
+      "Settings__PROGRAMACION_TODO": "00:00:10"
+      #LOCAL TOKEN 
+      "Token__TOKEN_SECRET": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS REPLACE IT WITH YOUR OWN SECRET IT CAN BE ANY STRING"
+      "Token__TOKEN_USER": "DOWNLOADOFFLINE_DEV"
+      "Token__TOKEN_PASSWORD": "rYWXlDIqFSsjrpFEehaqYFkcofOsdFLdhsZIsViF3a6WxHZq0CFDdg=="
+      "Token__TOKEN_CLIENT_ID": "download-offline_dev"
+      "Token__TOKEN_EXPIRES_DAYS": 7
     networks:
     - ms
     ports:
