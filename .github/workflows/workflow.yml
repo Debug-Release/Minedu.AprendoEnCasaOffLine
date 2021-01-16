@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
     name: Build with Docker
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
