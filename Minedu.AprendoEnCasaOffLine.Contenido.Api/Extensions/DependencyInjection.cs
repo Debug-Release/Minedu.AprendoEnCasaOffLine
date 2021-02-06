@@ -84,7 +84,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                     {
                         Title = "[Minedu Aprendo-en-Casa Contenido API]",
                         Description = "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores",
-                        Version = "V1",
+                        Version = "v1",
                         Contact = new OpenApiContact
                         {
                             Name = "MINEDU"
@@ -92,6 +92,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                     });
                 c.EnableAnnotations();
             });
+            services.AddSwaggerGenNewtonsoftSupport();
+
 
             #endregion
 

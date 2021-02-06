@@ -19,6 +19,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
     //[ApiExplorerSettings(IgnoreApi = true)]
     //[SwaggerTag("Operaciones para gestionar descargas de contenido")]
+    [ApiExplorerSettings(GroupName = "v1")]
     [Route("[controller]")]
     public class ContenidoController : ControllerBase
     {

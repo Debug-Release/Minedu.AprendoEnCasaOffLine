@@ -36,9 +36,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Client
                         var client = services.GetService<MsContenido.IClient>();
                         var servidores = client.ContenidoObtenerservidoresAsync().Result;
 
-                        //var dddd = client.ContenidoObtenerprogramaciontestAsync("esto hay").Result;
+                        var dddd = client.ContenidoObtenerprogramaciontestAsync("esto hay").Result;
 
-                        var erere = client.ContenidoObtenercontenidoAsync(1, 10, 0, "", MsContenido.OrderPagedEnum._0).Result;
+                        //var erere = client.ContenidoObtenercontenidoAsync(1, 10, 0, "", MsContenido.OrderPagedEnum._0).Result;
 
 
 

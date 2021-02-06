@@ -12,6 +12,7 @@ using System.Text;
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
     [Route("[controller]")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class AccountController : ControllerBase
     {
         private readonly AppSettings _appSettings;

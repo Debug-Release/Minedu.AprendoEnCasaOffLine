@@ -3,10 +3,11 @@ using Newtonsoft.Json.Serialization;
 using System;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel
-{    
+{   
+    
     public class ProgramacionDescarga : Base
     {
-        [JsonProperty(PropertyName = "contenido", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Contenido contenido { get; set; }
         public string macServidor { get; set; }
         public DateTime fechaProgramada { get; set; }
