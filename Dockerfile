@@ -1,4 +1,4 @@
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+#FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 #EXPOSE 80
 #EXPOSE 443
 #ENV ASPNETCORE_CORS http://localhost:4200
@@ -11,7 +11,7 @@
 #WORKDIR /app
 #ENTRYPOINT ["dotnet", "Minedu.AprendoEnCasaOffLine.Contenido.Api.dll"]
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /app
 ENV ASPNETCORE_CORS *
 
@@ -19,6 +19,7 @@ COPY *.sln ./
 
 COPY Minedu.AprendoEnCasaOffLine.Contenido.Api ./Minedu.AprendoEnCasaOffLine.Contenido.Api/
 COPY Minedu.AprendoEnCasaOffLine.Contenido.Core ./Minedu.AprendoEnCasaOffLine.Contenido.Core/
+COPY Minedu.AprendoEnCasaOffLine.Contenido.Worker ./Minedu.AprendoEnCasaOffLine.Contenido.Worker/
 
 WORKDIR /app/Minedu.AprendoEnCasaOffLine.Contenido.Api
 RUN dotnet restore "Minedu.AprendoEnCasaOffLine.Contenido.Api.csproj" --configfile NuGet.config -nowarn:msb3202,nu1503 
