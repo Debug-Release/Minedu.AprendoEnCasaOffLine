@@ -7,6 +7,7 @@ using Release.Helper;
 using Release.Helper.Pagination;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
+using VM = Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 {
@@ -60,9 +61,19 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
 
+        [HttpGet]
+        [Route("obtenerProgramacionTest")]
+        [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
+        public IActionResult ObtenerProgramacionTest(ProgramacionDescargaQuery query)
+        {
+            var sr = new StatusResponse<ProgramacionDescarga>() { Data = new ProgramacionDescarga() };
+
+            return Ok(sr);
+        }
+
         [HttpPost]
         [Route("registrarServidor")]
-        [SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
+        //[SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> RegistrarServidor([FromBody] RegistrarServidorCommand command)
         {

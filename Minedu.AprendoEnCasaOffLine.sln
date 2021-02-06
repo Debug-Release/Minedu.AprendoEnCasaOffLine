@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4DEEB1E2-3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine.Contenido.Worker", "Minedu.AprendoEnCasaOffLine.Contenido.Worker\Minedu.AprendoEnCasaOffLine.Contenido.Worker.csproj", "{B74E8325-3C12-4267-98AC-B7AE5216451E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minedu.AprendoEnCasaOffLine.Contenido.Client", "Minedu.AprendoEnCasaOffLine.Contenido.Client\Minedu.AprendoEnCasaOffLine.Contenido.Client.csproj", "{ECE2FBD2-322D-4102-907F-212E1B3437CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{B74E8325-3C12-4267-98AC-B7AE5216451E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B74E8325-3C12-4267-98AC-B7AE5216451E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B74E8325-3C12-4267-98AC-B7AE5216451E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE2FBD2-322D-4102-907F-212E1B3437CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE2FBD2-322D-4102-907F-212E1B3437CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE2FBD2-322D-4102-907F-212E1B3437CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE2FBD2-322D-4102-907F-212E1B3437CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{117A903F-C35E-44C8-A67D-E1487027AFA4} = {7BB58814-36FC-48DC-90EC-53A77952C696}
 		{E73FE3A2-4170-4175-BFCA-AEF21AB739CC} = {4DEEB1E2-3F88-41B7-8DB3-374C90E50491}
 		{B74E8325-3C12-4267-98AC-B7AE5216451E} = {7BB58814-36FC-48DC-90EC-53A77952C696}
+		{ECE2FBD2-322D-4102-907F-212E1B3437CD} = {4DEEB1E2-3F88-41B7-8DB3-374C90E50491}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0FDE291-6960-4081-9E4B-D6DCB0EB51D8}

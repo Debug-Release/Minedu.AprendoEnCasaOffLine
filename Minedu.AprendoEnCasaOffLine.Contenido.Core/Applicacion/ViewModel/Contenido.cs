@@ -1,5 +1,9 @@
-﻿namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel
 {
+    //[JsonObject(NamingStrategyType = typeof(DefaultNamingStrategy))]    
     public class Contenido : Base
     {
         //public string nombre { get; set; }
