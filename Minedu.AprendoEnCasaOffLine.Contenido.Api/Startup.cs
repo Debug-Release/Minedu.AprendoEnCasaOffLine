@@ -73,6 +73,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             //app.UseAuthentication();
             
             app.UseHttpsRedirection();
+            app.UseCustomCors();
             app.UseStaticFiles();
 
             app.UseSwagger();

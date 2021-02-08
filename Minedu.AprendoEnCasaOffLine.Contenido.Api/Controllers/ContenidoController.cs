@@ -65,7 +65,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         [HttpGet]
         [Route("obtenerProgramacionTest")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
-        public IActionResult ObtenerProgramacionTest(ProgramacionDescargaQuery query)
+        public IActionResult ObtenerProgramacionTest()
         {
             var sr = new StatusResponse<ProgramacionDescarga>() { Data = new ProgramacionDescarga() };
 

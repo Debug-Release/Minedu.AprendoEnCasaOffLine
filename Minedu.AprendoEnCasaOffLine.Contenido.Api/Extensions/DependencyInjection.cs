@@ -97,6 +97,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
             #endregion
 
+            services.AddCustomCors();
+
             return services;
         }
     }
