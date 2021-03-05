@@ -10,10 +10,10 @@
         }
       ],
       "UpstreamPathTemplate": "/gateway/{everything}",
-      "UpstreamHttpMethod": [ "POST", "PUT", "GET" ],
+      "UpstreamHttpMethod": [ "POST", "GET" ],
       "FileCacheOptions": {
         "TtlSeconds": 120,
-        "Region": "servidoresCaching"
+        "Region": "ContenidoCaching"
       }
     }
   ],
