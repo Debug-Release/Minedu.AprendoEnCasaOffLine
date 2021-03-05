@@ -6,6 +6,10 @@ using Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 using Release.Helper;
 using Release.Helper.Pagination;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using VM = Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 
@@ -161,6 +165,47 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             var r = await _mediator.Send(command);
 
             return Ok(r);
+        }
+
+        [HttpPost("upload"), DisableRequestSizeLimit]
+        public async Task<IActionResult> Upload()
+        {
+            try
+            {
+                var formCollection = await Request.ReadFormAsync();
+                var file = formCollection.Files.First();
+
+                //var file = Request.Form.Files[0];
+                var pathToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files");
+                if (!Directory.Exists(pathToSave))
+                {
+                    Directory.CreateDirectory(pathToSave);
+                }
+
+                if (file.Length > 0)
+                {
+
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+                    //var dbPath = Path.Combine(folderName, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                    return Ok(new { Success = true });
+
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
         }
     }
 }

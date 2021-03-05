@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             configuration.GetSection("Settings").Bind(appSettings.Settings);
             configuration.GetSection("Token").Bind(appSettings.Token);
             services.AddSingleton(appSettings);
-                        
+
 
             /*IS4
             services.AddAuthentication(options =>
@@ -94,6 +95,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             });
             services.AddSwaggerGenNewtonsoftSupport();
 
+
+            #endregion
+
+            #region Upload
+
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
 
             #endregion
 

@@ -66,6 +66,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
 
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_specificOrigins";
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -115,8 +116,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
                     });
             services.AddSingleton<IOcelotCache<CachedResponse>, InRedisCache<CachedResponse>>();
 
-
-            services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:4200")
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod()
+                                             .AllowCredentials();
+                                  });
+            });           
 
         }
 
@@ -127,13 +137,15 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
                 app.UseDeveloperExceptionPage();
             }
             app.UseRouting();
-
+            app.UseCors(MyAllowSpecificOrigins);
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            });                                 
 
             app.UseOcelot().Wait();
+            
         }
     }
 }

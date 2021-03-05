@@ -15,7 +15,7 @@
         "TtlSeconds": 120,
         "Region": "ContenidoCaching"
       }
-    }
+    }    
   ],
   "GlobalConfiguration": {
     //"BaseUrl": "http://localhost:44382"
