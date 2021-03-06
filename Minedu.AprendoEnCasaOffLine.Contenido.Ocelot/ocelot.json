@@ -1,5 +1,5 @@
 {
-  "Routes": [
+  "ReRoutes": [
     {
       "DownstreamPathTemplate": "/Contenido/{everything}",
       "DownstreamScheme": "https",
@@ -15,7 +15,7 @@
         "TtlSeconds": 120,
         "Region": "ContenidoCaching"
       }
-    }    
+    }
   ],
   "GlobalConfiguration": {
     //"BaseUrl": "http://localhost:44382"

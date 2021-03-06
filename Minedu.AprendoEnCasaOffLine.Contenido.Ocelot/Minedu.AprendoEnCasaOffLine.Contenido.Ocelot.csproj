@@ -6,10 +6,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="CSRedisCore" Version="3.6.5" />
-		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<!--<PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />-->
-		<PackageReference Include="Ocelot" Version="16.0.1" />
-		<PackageReference Include="Ocelot.Cache.CacheManager" Version="16.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />		
+		<PackageReference Include="Ocelot" Version="15.0.7" />
+		<PackageReference Include="Ocelot.Cache.CacheManager" Version="15.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>
