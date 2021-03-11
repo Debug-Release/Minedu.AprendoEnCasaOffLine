@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine.Contenido.Client", "Minedu.AprendoEnCasaOffLine.Contenido.Client\Minedu.AprendoEnCasaOffLine.Contenido.Client.csproj", "{ECE2FBD2-322D-4102-907F-212E1B3437CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot", "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot\Minedu.AprendoEnCasaOffLine.Contenido.Ocelot.csproj", "{58D3D6ED-8F3F-4210-B9FC-78852C89359D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot", "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot\Minedu.AprendoEnCasaOffLine.Contenido.Ocelot.csproj", "{58D3D6ED-8F3F-4210-B9FC-78852C89359D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
