@@ -9,6 +9,9 @@
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />		
 		<PackageReference Include="Ocelot" Version="15.0.7" />
 		<PackageReference Include="Ocelot.Cache.CacheManager" Version="15.0.7" />
+		<PackageReference Include="StackExchange.Redis.Extensions.AspNetCore" Version="6.4.5" />
+		<PackageReference Include="StackExchange.Redis.Extensions.Core" Version="6.4.5" />
+		<PackageReference Include="StackExchange.Redis.Extensions.Newtonsoft" Version="6.4.5" />
 	</ItemGroup>
 
 	<ItemGroup>
