@@ -9,6 +9,8 @@
 	<ItemGroup>
 		<!--
 		<PackageReference Include="Minedu.IS4.Security.Auth" Version="1.0.0" />-->
+		<PackageReference Include="Mapster" Version="7.1.5" />
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
 		<PackageReference Include="DotNetEnv" Version="2.0.0" />
 
