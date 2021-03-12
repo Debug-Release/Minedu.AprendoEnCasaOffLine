@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -80,21 +82,60 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
             services.AddSwaggerGen(c =>
             {
+                /*
+                var provider = services.BuildServiceProvider();
+                var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+                foreach (ApiVersionDescription item in service.ApiVersionDescriptions)
+                {
+                    c.SwaggerDoc(item.GroupName, CreateMetaInfoAPIVersion(item));
+                }
+                */
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "[Minedu Aprendo-en-Casa Contenido API]",
-                        Description = "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores",
                         Version = "v1",
+                        Title = "[Minedu Aprendo-en-Casa Contenido API]" + " v1",
+                        Description = "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "MINEDU"
+                        }
+                    });
+                c.SwaggerDoc("v2",
+                    new OpenApiInfo
+                    {
+                        Version = "v2",
+                        Title = "[Minedu Aprendo-en-Casa Contenido API]" + " v2",
+                        Description = "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores",
                         Contact = new OpenApiContact
                         {
                             Name = "MINEDU"
                         }
                     });
                 c.EnableAnnotations();
+                c.CustomSchemaIds(x => x.FullName);
             });
             services.AddSwaggerGenNewtonsoftSupport();
 
+
+            #endregion
+
+            #region Version API
+
+            services.AddApiVersioning(options =>
+            {
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.ReportApiVersions = true;
+            });
+
+            /*
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
+            });
+            */           
 
             #endregion
 
@@ -112,6 +153,21 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             services.AddCustomCors();
 
             return services;
+        }
+
+        private static OpenApiInfo CreateMetaInfoAPIVersion(ApiVersionDescription apiDescription)
+        {
+            //var v = apiDescription.ApiVersion.ToString();
+            return new OpenApiInfo
+            {
+                Title = "[Minedu Aprendo-en-Casa Contenido API]" + $" {apiDescription.GroupName}",
+                Version = apiDescription.GroupName,
+                Description = "[Minedu Aprendo-en-Casa Contenido API] - Gestionar descargas de contenido programado para servidores",
+                Contact = new OpenApiContact
+                {
+                    Name = "MINEDU"
+                }
+            };
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using VM = Minedu.AprendoEnCasaOffLine.Contenido.Core.ViewModel;
 
-namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
+namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.V2
 {
 #if DEBUG
 
@@ -23,8 +23,10 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
 
     //[ApiExplorerSettings(IgnoreApi = true)]
     //[SwaggerTag("Operaciones para gestionar descargas de contenido")]
-    [ApiExplorerSettings(GroupName = "v1")]
-    [Route("[controller]")]
+    //[ApiExplorerSettings(GroupName = "v1")]
+    [ApiVersion("2")]    
+    //[Route("[controller]")]
+    [Route("api/v2/[controller]")]
     public class ContenidoController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -35,6 +37,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpGet]
+        [MapToApiVersion("2")]
         [Route("obtenerServidores")]
         //[ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(Servidor[]))]
@@ -46,6 +49,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
         [HttpGet]
+        [MapToApiVersion("2")]
         [Route("obtenerContenido")]
         //[ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
@@ -57,6 +61,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
         [HttpGet]
+        [MapToApiVersion("2")]
         [Route("obtenerProgramacion")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public async Task<IActionResult> ObtenerProgramacion(ProgramacionDescargaQuery query)
@@ -67,6 +72,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpGet]
+        [MapToApiVersion("2")]
         [Route("obtenerProgramacionTest")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public IActionResult ObtenerProgramacionTest()
@@ -77,6 +83,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("registrarServidor")]
         //[SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -88,6 +95,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("agregarContenido")]
         //[SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -99,6 +107,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("programarDescarga")]
         //[SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -109,6 +118,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("programarTodoDescarga")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
@@ -121,6 +131,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpGet("descargar")]
+        [MapToApiVersion("2")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
         public async Task<ActionResult> DownloadAsync(string id)
@@ -138,6 +149,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             };
         }
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("recibirACK")]
         //[SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -148,6 +160,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("enviarTrazabilidad")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarTrazabilidad([FromBody] TrazabilidadCommand command)
@@ -158,6 +171,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
         }
 
         [HttpPost]
+        [MapToApiVersion("2")]
         [Route("enviarContinuidadOperativa")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarContinuidadOperativa([FromBody] ContinuidadOperativaCommand command)
@@ -167,6 +181,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers
             return Ok(r);
         }
 
+        [MapToApiVersion("2")]
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<IActionResult> Upload()
         {
