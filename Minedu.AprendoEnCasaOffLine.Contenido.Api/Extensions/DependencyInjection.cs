@@ -1,8 +1,5 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -89,7 +86,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 {
                     c.SwaggerDoc(item.GroupName, CreateMetaInfoAPIVersion(item));
                 }
-                */
+               */
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
@@ -112,6 +109,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                             Name = "MINEDU"
                         }
                     });
+                
                 c.EnableAnnotations();
                 c.CustomSchemaIds(x => x.FullName);
             });
@@ -121,21 +119,20 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             #endregion
 
             #region Version API
-
+            /*
             services.AddApiVersioning(options =>
             {
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ReportApiVersions = true;
             });
-
-            /*
+            
             services.AddVersionedApiExplorer(options =>
             {
                 options.GroupNameFormat = "'v'VVV";
                 options.SubstituteApiVersionInUrl = true;
             });
-            */           
+            */
 
             #endregion
 
@@ -154,7 +151,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 
             return services;
         }
-
+        /*
         private static OpenApiInfo CreateMetaInfoAPIVersion(ApiVersionDescription apiDescription)
         {
             //var v = apiDescription.ApiVersion.ToString();
@@ -169,5 +166,6 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 }
             };
         }
+        */
     }
 }

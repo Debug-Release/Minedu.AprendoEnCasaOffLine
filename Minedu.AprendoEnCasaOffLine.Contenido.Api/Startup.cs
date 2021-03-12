@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -95,8 +94,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
                 */
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "API V2");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
                 c.RoutePrefix = "swagger";
                 
             });
