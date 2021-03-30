@@ -114,7 +114,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
                         x.WithDictionaryHandle();
 
                     });
-            services.AddSingleton<IOcelotCache<CachedResponse>, InRedisCache<CachedResponse>>();
+            //services.AddSingleton<IOcelotCache<CachedResponse>, InRedisCache<CachedResponse>>();
 
             services.AddCors(options =>
             {

@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine.Contenido.Client", "Minedu.AprendoEnCasaOffLine.Contenido.Client\Minedu.AprendoEnCasaOffLine.Contenido.Client.csproj", "{ECE2FBD2-322D-4102-907F-212E1B3437CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot", "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot\Minedu.AprendoEnCasaOffLine.Contenido.Ocelot.csproj", "{58D3D6ED-8F3F-4210-B9FC-78852C89359D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot", "Minedu.AprendoEnCasaOffLine.Contenido.Ocelot\Minedu.AprendoEnCasaOffLine.Contenido.Ocelot.csproj", "{58D3D6ED-8F3F-4210-B9FC-78852C89359D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minedu.AprendoEnCasaOffLine.Contenido.Fabio", "Minedu.AprendoEnCasaOffLine.Contenido.Fabio\Minedu.AprendoEnCasaOffLine.Contenido.Fabio.csproj", "{C2C45F62-794E-41B1-B39A-BBC02EC6801F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{58D3D6ED-8F3F-4210-B9FC-78852C89359D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58D3D6ED-8F3F-4210-B9FC-78852C89359D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58D3D6ED-8F3F-4210-B9FC-78852C89359D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C45F62-794E-41B1-B39A-BBC02EC6801F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C45F62-794E-41B1-B39A-BBC02EC6801F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C45F62-794E-41B1-B39A-BBC02EC6801F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C45F62-794E-41B1-B39A-BBC02EC6801F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{B74E8325-3C12-4267-98AC-B7AE5216451E} = {7BB58814-36FC-48DC-90EC-53A77952C696}
 		{ECE2FBD2-322D-4102-907F-212E1B3437CD} = {4DEEB1E2-3F88-41B7-8DB3-374C90E50491}
 		{58D3D6ED-8F3F-4210-B9FC-78852C89359D} = {4DEEB1E2-3F88-41B7-8DB3-374C90E50491}
+		{C2C45F62-794E-41B1-B39A-BBC02EC6801F} = {4DEEB1E2-3F88-41B7-8DB3-374C90E50491}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0FDE291-6960-4081-9E4B-D6DCB0EB51D8}
