@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +13,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
 {
@@ -55,6 +57,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
             });
 
+            services.AddControllers(options =>
+            {
+                options.Conventions.Add(new GroupingByNamespaceConvention());
+            });
+
             services.AddAplicacion(Configuration);
 
         }
@@ -79,12 +86,21 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+                /*
+                var provider = services.BuildServiceProvider();
+                var service = provider.GetRequiredService<IApiVersionDescriptionProvider>();
+                foreach (ApiVersionDescription description in provider.ApiVersionDescriptions)
+                {
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                }
+                */
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "v2");
                 c.RoutePrefix = "swagger";
+                
             });
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -97,6 +113,17 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
                 context.Response.WriteAsync($"<h1 style='color:{color};'>[MS.Api] Environment: {href}</h1>")
             );
 
+        }
+    }
+
+    public class GroupingByNamespaceConvention : IControllerModelConvention
+    {
+        public void Apply(ControllerModel controller)
+        {
+            var controllerNamespace = controller.ControllerType.Namespace;
+            var apiVersion = controllerNamespace.Split(".").Last().ToLower();
+            if (!apiVersion.StartsWith("v")) { apiVersion = "v1"; }
+            controller.ApiExplorer.GroupName = apiVersion;
         }
     }
 }

@@ -9,15 +9,33 @@
           "Port": 44388
         }
       ],
-      "UpstreamPathTemplate": "/gateway/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "UpstreamPathTemplate": "/Contenido/{everything}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamHeaderTransform": {
+        "IpClient": "{RemoteIpAddress}"
+      },
       "FileCacheOptions": {
         "TtlSeconds": 120,
-        "Region": "ContenidoCaching"
+        "Region": "contenido"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 44388
+        }
+      ],
+      "UpstreamPathTemplate": "/{everything}",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "UpstreamHeaderTransform": {
+        "IpClient": "{RemoteIpAddress}"
       }
     }
   ],
   "GlobalConfiguration": {
-    //"BaseUrl": "http://localhost:44382"
+    "BaseUrl": "http://localhost:44382"
   }
 }

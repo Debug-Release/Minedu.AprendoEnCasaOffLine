@@ -7,66 +7,22 @@ using Ocelot.Cache;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using System;
+using StackExchange.Redis.Extensions.Core.Configuration;
+using StackExchange.Redis.Extensions.Newtonsoft;
 
 namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
 {
-    public class InRedisCache<T> : IOcelotCache<T>
-    {
-        private readonly IConfiguration _configuration;
-        public InRedisCache(IConfiguration configuration)
-        {
-            _configuration = configuration;
-            string cs = _configuration.GetSection("Redis:ConnectionString").Value;
-
-            var csredis = new CSRedis.CSRedisClient(cs);
-            RedisHelper.Initialization(csredis);
-
-        }
-
-        public void Add(string key, T value, TimeSpan ttl, string region)
-        {
-            key = GetKey(region, key);
-
-            if (ttl.TotalMilliseconds <= 0)
-            {
-                return;
-            }
-            //RedisHelper.Set(key, value.ToJson(), (int)ttl.TotalSeconds);
-            RedisHelper.Set(key, value, (int)ttl.TotalSeconds);
-        }
-
-        public void AddAndDelete(string key, T value, TimeSpan ttl, string region)
-        {
-            Add(key, value, ttl, region);
-        }
-
-        public void ClearRegion(string region)
-        {
-            var data = RedisHelper.Keys(GetKey(region, "*"));
-            RedisHelper.Del(data);
-        }
-
-        public T Get(string key, string region)
-        {
-            key = GetKey(region, key);
-            var result = RedisHelper.Get<T>(key);
-            if (result != null)
-            {
-                return (T)result;
-            }
-            return default(T);
-        }
-
-        private string GetKey(string region, string key)
-        {
-            return $"{region}-{key}".ToLower();
-        }
-    }
 
     public class Startup
     {
+        private readonly IConfiguration Configuration;
+
         readonly string MyAllowSpecificOrigins = "_specificOrigins";
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -114,7 +70,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
                         x.WithDictionaryHandle();
 
                     });
-            //services.AddSingleton<IOcelotCache<CachedResponse>, InRedisCache<CachedResponse>>();
+            services.AddSingleton<IOcelotCache<CachedResponse>, InRedisCache<CachedResponse>>();
 
             services.AddCors(options =>
             {
@@ -126,10 +82,11 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
                                              .AllowAnyMethod()
                                              .AllowCredentials();
                                   });
-            });           
+            });
 
         }
 
+       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -138,14 +95,25 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Ocelot
             }
             app.UseRouting();
             app.UseCors(MyAllowSpecificOrigins);
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });                                 
+            });
 
             app.UseOcelot().Wait();
-            
+
+        }
+    }
+    public static class ServiceCollectionExtensions 
+    {
+        public static IServiceCollection AddCustomCache(this IServiceCollection services, IConfiguration configuration)
+        {
+            var redisConfiguration = configuration.GetSection("Redis").Get<RedisConfiguration>();
+
+            services.AddStackExchangeRedisExtensions<NewtonsoftSerializer>(redisConfiguration);
+
+            return services;
         }
     }
 }
