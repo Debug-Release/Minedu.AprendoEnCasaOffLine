@@ -32,7 +32,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             _mediator = mediator;
         }
 
-        [HttpGet]       
+        [HttpGet]
         [Route("obtenerServidores")]
         //[ApiExplorerSettings(IgnoreApi = true)]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(Servidor[]))]
@@ -43,7 +43,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
             return Ok(r);
         }
-        [HttpGet]      
+        [HttpGet]
         [Route("obtenerContenido")]
         //[ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Listar contenido", Description = "Listar contenido paginado")]
@@ -54,7 +54,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
             return Ok(r);
         }
-        [HttpGet]        
+        [HttpGet]
         [Route("obtenerProgramacion")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public async Task<IActionResult> ObtenerProgramacion(ProgramacionDescargaQuery query)
@@ -64,7 +64,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(r);
         }
 
-        [HttpGet]        
+        [HttpGet]
         [Route("obtenerProgramacionTest")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse<ProgramacionDescarga>))]
         public IActionResult ObtenerProgramacionTest()
@@ -74,7 +74,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(sr);
         }
 
-        [HttpPost]        
+        [HttpPost]
         [Route("registrarServidor")]
         //[SwaggerOperation(Summary = "Registrar servidor", Description = "Registrar servidor")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -85,7 +85,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(r);
         }
 
-        [HttpPost]        
+        [HttpPost]
         [Route("agregarContenido")]
         //[SwaggerOperation(Summary = "Registrar contenido a descargar", Description = "Registrar contenido a descargar")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -96,7 +96,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(r);
         }
 
-        [HttpPost]        
+        [HttpPost]
         [Route("programarDescarga")]
         //[SwaggerOperation(Summary = "Programar descarga por servidor", Description = "Programar descarga por servidor")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -106,7 +106,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
             return Ok(r);
         }
-        [HttpPost]        
+        [HttpPost]
         [Route("programarTodoDescarga")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Programar descarga para todos los servidores activos", Description = "Programar descarga para todos los servidores activos")]
@@ -118,7 +118,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(r);
         }
 
-        [HttpGet("descargar")]        
+        [HttpGet("descargar")]
         [ApiExplorerSettings(IgnoreApi = true)]
         //[SwaggerOperation(Summary = "Descargar contenido programado", Description = "Descargar contenido programado")]
         public async Task<ActionResult> DownloadAsync(string id)
@@ -135,7 +135,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
                 FileDownloadName = file.FileName
             };
         }
-        [HttpPost]        
+        [HttpPost]
         [Route("recibirACK")]
         //[SwaggerOperation(Summary = "Recibir ACK  de descarga", Description = "Recibir ACK  de descarga")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
@@ -145,7 +145,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
             return Ok(r);
         }
-        [HttpPost]        
+        [HttpPost]
         [Route("enviarTrazabilidad")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarTrazabilidad([FromBody] TrazabilidadCommand command)
@@ -155,7 +155,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
             return Ok(r);
         }
 
-        [HttpPost]        
+        [HttpPost]
         [Route("enviarContinuidadOperativa")]
         [SwaggerResponse(statusCode: HttpStatusCodes.Status200OK, type: typeof(StatusResponse))]
         public async Task<IActionResult> EnviarContinuidadOperativa([FromBody] ContinuidadOperativaCommand command)
@@ -164,38 +164,40 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
             return Ok(r);
         }
-                
+
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<IActionResult> Upload()
         {
             try
             {
-                var formCollection = await Request.ReadFormAsync();
-                var file = formCollection.Files.First();
-
-                //var file = Request.Form.Files[0];
                 var pathToSave = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Files");
                 if (!Directory.Exists(pathToSave))
                 {
                     Directory.CreateDirectory(pathToSave);
                 }
 
-                if (file.Length > 0)
-                {
+                var formCollection = await Request.ReadFormAsync();
+                //var file = formCollection.Files.First();
 
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var fullPath = Path.Combine(pathToSave, fileName);
-                    //var dbPath = Path.Combine(folderName, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                foreach (var file in formCollection.Files)
+                {
+                    if (file.Length > 0)
                     {
-                        file.CopyTo(stream);
-                    }
-                    return Ok(new { Success = true });
 
-                }
-                else
-                {
-                    return BadRequest();
+                        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                        var fullPath = Path.Combine(pathToSave, fileName);
+
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            file.CopyTo(stream);
+                        }
+                        //return Ok(new { Success = true });
+
+                    }
+                    //else
+                    //{
+                    //   return BadRequest();
+                    //}
                 }
 
             }
@@ -204,6 +206,8 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api.Controllers.v2
 
                 return StatusCode(500, $"Internal server error: {ex}");
             }
+
+            return Ok(new { Success = true });
         }
     }
 }

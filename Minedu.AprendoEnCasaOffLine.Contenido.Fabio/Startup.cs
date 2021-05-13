@@ -43,7 +43,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Fabio
                 .AddConvey()
                 .RegisterConvey(Configuration);
 
-            
+            /*
             services.AddSingleton<ITracer>(serviceProvider =>
             {
                 string serviceName = Assembly.GetEntryAssembly().GetName().Name;
@@ -71,7 +71,7 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Fabio
             });
 
             services.AddOpenTracing();
-            
+            */
             services.AddControllers();
 
 

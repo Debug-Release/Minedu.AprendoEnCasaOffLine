@@ -1,10 +1,10 @@
 set ms=doctrina
 docker-compose down
-docker rmi 192.168.0.10/linu1.0/%ms% --force
+docker rmi registry.sunedu.gob.pe/siu-dev/%ms% --force
 docker rmi %ms% --force
 docker system prune --force
 docker-compose build
-docker tag %ms% 192.168.0.10/linu1.0/%ms%
-docker login 192.168.0.10 --username madiaz --password Pandemia2020
-docker push 192.168.0.10/linu1.0/%ms%
+docker tag %ms% registry.sunedu.gob.pe/siu-dev/%ms%
+docker login registry.sunedu.gob.pe --username madiaz --password Pandemia2020
+docker push registry.sunedu.gob.pe/siu-dev/%ms%
 pause
