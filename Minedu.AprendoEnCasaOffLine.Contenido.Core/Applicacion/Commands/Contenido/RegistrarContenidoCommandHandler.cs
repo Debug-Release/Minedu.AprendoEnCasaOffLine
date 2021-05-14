@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using Minedu.AprendoEnCasaOffLine.Contenido.Core.Aplicacion;
 using Release.Helper;
 using Release.MongoDB.Repository;
 using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,29 +12,25 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
     public class RegistrarContenidoCommandHandler : IRequestHandler<RegistrarContenidoCommand, StatusResponse>
     {
         private readonly IBaseRepository<Model.Contenido> _contenidoRepository;
+        private readonly ContenidoValidation _contenidoValidation;
+        private readonly ILogger<RegistrarContenidoCommandHandler> _logger;
 
-        public RegistrarContenidoCommandHandler(IBaseRepository<Model.Contenido> contenidoRepository)
+        public RegistrarContenidoCommandHandler(IBaseRepository<Model.Contenido> contenidoRepository, ContenidoValidation contenidoValidation, ILogger<RegistrarContenidoCommandHandler> logger)
         {
             _contenidoRepository = contenidoRepository;
+            _contenidoValidation = contenidoValidation;
+            _logger = logger;
         }
 
         public async Task<StatusResponse> Handle(RegistrarContenidoCommand request, CancellationToken cancellationToken)
         {
-            var cr = new StatusResponse
+            var sr = await Execute.TryCatchAsync(() =>
             {
-                StatusCode = 200,
-                Success = true,
-            };
-
-            var q = _contenidoRepository.FirstOrDefault(x => x.nombre == request.archivo);
-            if (q != null)
+                return _contenidoValidation.ValidaRegistrar(request);
+            },
+            () =>
             {
-                cr.Success = false;
-                cr.Messages.Add("Ya existe un archivo registrado con el nombre [" + request.archivo + "]");
-            }
-            else
-            {
-                var r = await _contenidoRepository.InsertOneAsync(new Model.Contenido
+                var r = _contenidoRepository.InsertOneAsync(new Model.Contenido
                 {
                     nombre = null,
                     descripcion = null,
@@ -42,13 +39,13 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Core.Commands
                     estado = EstadoContenido.Cargado, //Cargado = cuando el archivo ya esta cargado en directorio de descargas
                     esActivo = true,
                     fechaCreacion = DateTime.Now
-                });
+                }).Result;
 
-                cr.Data = r.id;
-                cr.Messages.Add("El contenido se registro correctamente");
-            }
+                return new StatusResponse(true, "El contenido se registro correctamente", data: r.id);
 
-            return await Task.FromResult(cr);
+            }, _logger);
+
+            return sr;
         }
     }
 }

@@ -17,6 +17,9 @@ namespace Minedu.AprendoEnCasaOffLine.Contenido.Api
             //Fluent 
             builder.RegisterModule(new FluentModule(configuration));
 
+            //Application
+            builder.RegisterModule(new ApplicationModule(configuration));
+
             //Worker            
             builder.RegisterModule(new WorkerModule(configuration));
         }
